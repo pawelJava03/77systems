@@ -14,7 +14,7 @@ export function Preloader({ onFinish }: PreloaderProps) {
     const timer = setTimeout(() => {
       setIsLoading(false);
       onFinish();
-    }, 2900);
+    }, 1400);
     return () => clearTimeout(timer);
   }, [onFinish]);
 
@@ -165,7 +165,7 @@ export function Preloader({ onFinish }: PreloaderProps) {
               className="h-full bg-[#ff751f] rounded-full origin-left"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 2.0, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 1.0, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
           </motion.div>
         </motion.div>
