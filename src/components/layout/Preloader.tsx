@@ -3,20 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface PreloaderProps {
-  onFinish: () => void;
-}
-
-export function Preloader({ onFinish }: PreloaderProps) {
+export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      onFinish();
-    }, 1400);
+    const timer = setTimeout(() => setIsLoading(false), 1400);
     return () => clearTimeout(timer);
-  }, [onFinish]);
+  }, []);
 
   return (
     <AnimatePresence>
