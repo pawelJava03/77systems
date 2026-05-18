@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Nagrania głosowe z formularza - zapis publiczny, odczyt tylko dla admina
+    match /leads/{allPaths=**} {
+      allow write: if true;
+      allow read: if request.auth != null && request.auth.token.email == 'pawell.staciwa@gmail.com';
+    }
+    // Zdjęcia do portfolio - odczyt publiczny, zapis tylko dla admina
+    match /portfolio/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.email == 'pawell.staciwa@gmail.com';
+    }
+  }
+}
