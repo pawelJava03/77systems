@@ -78,7 +78,7 @@ export function HeroDashboardMockup() {
                 </div>
               </div>
             </div>
-            <button className="bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-white transition-all px-6 py-3 rounded-xl text-xs font-bold tracking-wide shadow-[0_0_15px_rgba(255,85,0,0.15)] flex items-center justify-center">
+            <button aria-label="Utwórz nowy projekt" className="bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-white transition-all px-6 py-3 rounded-xl text-xs font-bold tracking-wide shadow-[0_0_15px_rgba(255,85,0,0.15)] flex items-center justify-center">
               UTWÓRZ NOWY PROJEKT
             </button>
           </div>

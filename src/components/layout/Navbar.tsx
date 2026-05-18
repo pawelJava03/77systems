@@ -189,6 +189,7 @@ export function Navbar() {
             <Image src="/logo.svg" alt="77systems" width={120} height={30} className="h-8 w-auto" />
             <button
               onClick={() => setMobileOpen(false)}
+              aria-label="Zamknij menu"
               className="flex items-center justify-center w-9 h-9 rounded-full bg-white/5 text-white"
             >
               <X className="w-4 h-4" />

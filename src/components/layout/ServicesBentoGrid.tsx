@@ -169,11 +169,11 @@ export function ServicesBentoGrid() {
            </div>
            
            {/* Floating elements */}
-           <div className="absolute -left-10 top-20 bg-black border border-border p-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-[bounce_3s_infinite]">
+           <div className="absolute -left-10 top-20 bg-black border border-border p-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-[float_3s_ease-in-out_infinite]">
              <Heart className="w-5 h-5 text-pink-500 fill-pink-500" />
              <span className="font-bold text-white text-sm">1.2k Likes</span>
            </div>
-           <div className="absolute -right-5 top-40 bg-black border border-border p-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-[bounce_4s_infinite_0.5s]">
+           <div className="absolute -right-5 top-40 bg-black border border-border p-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-[float_4s_ease-in-out_infinite_0.5s]">
              <MessageCircle className="w-5 h-5 text-blue-500 fill-blue-500" />
              <span className="font-bold text-white text-sm">340 Comments</span>
            </div>
