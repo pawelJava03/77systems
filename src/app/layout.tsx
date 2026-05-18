@@ -16,6 +16,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "GlBbBVfgx8pHGI-yt13rgQ4LjbVLeq0Cgeos8UFAQw8",
+  },
   title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
   description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt ➜ Wdrożenie w tygodnie, nie miesiące.",
   keywords: "automatyzacja procesów biznesowych, tworzenie stron internetowych Kielce, tworzenie stron internetowych Warszawa, wdrożenie AI w firmie, agencja interaktywna, systemy IT dla firm, pozycjonowanie stron SEO, obsługa social media Śląsk",
