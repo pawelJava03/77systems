@@ -5,8 +5,9 @@ import {
   collection, query, orderBy, onSnapshot,
   addDoc, deleteDoc, doc, serverTimestamp, writeBatch, getDocs
 } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
-import { Trash2, Plus, Loader2, Download, Image } from "lucide-react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db, storage } from "@/lib/firebase/config";
+import { Trash2, Plus, Loader2, Download, Image, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CATEGORIES = [
@@ -54,6 +55,24 @@ export default function AdminPortfolioPage() {
     description: "",
     imageUrl: "",
   });
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (file: File) => {
+    const storageRef = ref(storage, `portfolio/${Date.now()}_${file.name}`);
+    const task = uploadBytesResumable(storageRef, file);
+    setUploadProgress(0);
+    task.on(
+      "state_changed",
+      (snap) => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      (err) => { console.error(err); alert("Błąd uploadu."); setUploadProgress(null); },
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        setForm((f) => ({ ...f, imageUrl: url }));
+        setUploadProgress(null);
+      }
+    );
+  };
 
   useEffect(() => {
     const q = query(collection(db, "portfolio"), orderBy("createdAt", "desc"));
@@ -179,19 +198,43 @@ export default function AdminPortfolioPage() {
             </div>
             <div>
               <label className="block text-sm text-muted-foreground mb-1 flex items-center gap-1">
-                <Image className="w-3 h-3" /> URL zdjęcia (opcjonalnie)
+                <Image className="w-3 h-3" /> Zdjęcie (opcjonalnie)
               </label>
               <input
-                type="url"
-                value={form.imageUrl}
-                onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-                className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
-                placeholder="https://przykład.pl/zdjecie.jpg"
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f); }}
               />
-              {form.imageUrl && (
-                <div className="mt-2 rounded-xl overflow-hidden border border-white/10">
-                  <img src={form.imageUrl} alt="Podgląd" className="w-full h-32 object-cover" onError={(e) => (e.currentTarget.style.display = "none")} />
+              {form.imageUrl ? (
+                <div className="relative rounded-xl overflow-hidden border border-white/10">
+                  <img src={form.imageUrl} alt="Podgląd" className="w-full h-40 object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => { setForm({ ...form, imageUrl: "" }); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                    className="absolute top-2 right-2 bg-black/70 hover:bg-black rounded-full p-1 text-white"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
+              ) : uploadProgress !== null ? (
+                <div className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-5 flex items-center gap-3">
+                  <Loader2 className="w-4 h-4 animate-spin text-primary shrink-0" />
+                  <div className="flex-1 bg-white/10 rounded-full h-2 overflow-hidden">
+                    <div className="bg-primary h-2 rounded-full transition-all" style={{ width: `${uploadProgress}%` }} />
+                  </div>
+                  <span className="text-xs text-muted-foreground shrink-0">{uploadProgress}%</span>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-full bg-[#1A1A1A] border border-dashed border-white/20 hover:border-primary/50 rounded-xl px-4 py-8 flex flex-col items-center gap-2 text-muted-foreground hover:text-white transition-colors"
+                >
+                  <Upload className="w-6 h-6" />
+                  <span className="text-sm">Kliknij aby wybrać zdjęcie</span>
+                </button>
               )}
             </div>
             <Button type="submit" disabled={saving} className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-6 rounded-xl gap-2">
