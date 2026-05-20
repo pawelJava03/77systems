@@ -6,8 +6,8 @@ import {
   addDoc, deleteDoc, doc, serverTimestamp, writeBatch, getDocs
 } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/lib/firebase/config";
-import { Trash2, Plus, Loader2, Download, Image, Upload, X } from "lucide-react";
+import { db, storage, auth } from "@/lib/firebase/config";
+import { Trash2, Plus, Loader2, Download, Image, Upload, X, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CATEGORIES = [
@@ -19,18 +19,18 @@ const CATEGORIES = [
 ];
 
 const STATIC_PROJECTS = [
-  { title: "Nowoczesna strona dla dewelopera", slug: "strona-deweloper", category: "Strony internetowe", description: "", imageUrl: "" },
-  { title: "Landing page dla branży fitness", slug: "landing-fitness", category: "Strony internetowe", description: "", imageUrl: "" },
-  { title: "Sklep z odzieżą premium", slug: "sklep-odziez", category: "Sklepy internetowe", description: "", imageUrl: "" },
-  { title: "Platforma e-commerce B2B", slug: "ecommerce-b2b", category: "Sklepy internetowe", description: "", imageUrl: "" },
-  { title: "System ERP dla Logistyki", slug: "erp-logistyka", category: "Automatyzacje & AI", description: "", imageUrl: "" },
-  { title: "Zautomatyzowany obieg dokumentów", slug: "obieg-dokumentow", category: "Automatyzacje & AI", description: "", imageUrl: "" },
-  { title: "Wzrost ruchu organicznego o 300%", slug: "seo-ecommerce", category: "SEO", description: "", imageUrl: "" },
-  { title: "Lokalne SEO dla sieci klinik", slug: "seo-klinika", category: "SEO", description: "", imageUrl: "" },
-  { title: "Audyt techniczny i ratowanie spadków", slug: "seo-audyt-techniczny", category: "SEO", description: "", imageUrl: "" },
-  { title: "Kampania Meta Ads dla restauracji", slug: "meta-ads-restauracja", category: "Social media", description: "", imageUrl: "" },
-  { title: "Prowadzenie profilu marki modowej", slug: "profil-modowy", category: "Social media", description: "", imageUrl: "" },
-  { title: "Viralowe wideo na TikTok dla salonu", slug: "tiktok-salon-urody", category: "Social media", description: "", imageUrl: "" },
+  { title: "Nowoczesna strona dla dewelopera", slug: "strona-deweloper", category: "Strony internetowe", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Landing page dla branży fitness", slug: "landing-fitness", category: "Strony internetowe", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Sklep z odzieżą premium", slug: "sklep-odziez", category: "Sklepy internetowe", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Platforma e-commerce B2B", slug: "ecommerce-b2b", category: "Sklepy internetowe", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "System ERP dla Logistyki", slug: "erp-logistyka", category: "Automatyzacje & AI", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Zautomatyzowany obieg dokumentów", slug: "obieg-dokumentow", category: "Automatyzacje & AI", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Wzrost ruchu organicznego o 300%", slug: "seo-ecommerce", category: "SEO", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Lokalne SEO dla sieci klinik", slug: "seo-klinika", category: "SEO", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Audyt techniczny i ratowanie spadków", slug: "seo-audyt-techniczny", category: "SEO", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Kampania Meta Ads dla restauracji", slug: "meta-ads-restauracja", category: "Social media", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Prowadzenie profilu marki modowej", slug: "profil-modowy", category: "Social media", description: "", imageUrl: "", content: "", technologies: [] },
+  { title: "Viralowe wideo na TikTok dla salonu", slug: "tiktok-salon-urody", category: "Social media", description: "", imageUrl: "", content: "", technologies: [] },
 ];
 
 interface Project {
@@ -40,39 +40,29 @@ interface Project {
   category: string;
   description: string;
   imageUrl: string;
+  content: string;
+  technologies: string[];
 }
+
+const emptyForm = {
+  title: "",
+  slug: "",
+  category: CATEGORIES[0],
+  description: "",
+  imageUrl: "",
+  content: "",
+  technologies: [] as string[],
+};
 
 export default function AdminPortfolioPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [migrating, setMigrating] = useState(false);
-
-  const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    category: CATEGORIES[0],
-    description: "",
-    imageUrl: "",
-  });
+  const [form, setForm] = useState(emptyForm);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [techInput, setTechInput] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleImageUpload = (file: File) => {
-    const storageRef = ref(storage, `portfolio/${Date.now()}_${file.name}`);
-    const task = uploadBytesResumable(storageRef, file);
-    setUploadProgress(0);
-    task.on(
-      "state_changed",
-      (snap) => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-      (err) => { console.error(err); alert("Błąd uploadu."); setUploadProgress(null); },
-      async () => {
-        const url = await getDownloadURL(task.snapshot.ref);
-        setForm((f) => ({ ...f, imageUrl: url }));
-        setUploadProgress(null);
-      }
-    );
-  };
 
   useEffect(() => {
     const q = query(collection(db, "portfolio"), orderBy("createdAt", "desc"));
@@ -108,6 +98,49 @@ export default function AdminPortfolioPage() {
     }
   };
 
+  const handleImageUpload = (file: File) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Musisz być zalogowany aby wgrać zdjęcie.");
+      return;
+    }
+
+    const storageRef = ref(storage, `portfolio/${Date.now()}_${file.name}`);
+    const task = uploadBytesResumable(storageRef, file);
+    setUploadProgress(0);
+
+    task.on(
+      "state_changed",
+      (snap) => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      (err) => {
+        console.error("Upload error:", err);
+        if (err.code === "storage/unauthorized") {
+          alert("Brak uprawnień do uploadu. Sprawdź czy jesteś zalogowany właściwym kontem.");
+        } else {
+          alert(`Błąd uploadu: ${err.message}`);
+        }
+        setUploadProgress(null);
+      },
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        setForm((f) => ({ ...f, imageUrl: url }));
+        setUploadProgress(null);
+      }
+    );
+  };
+
+  const addTech = () => {
+    const t = techInput.trim();
+    if (t && !form.technologies.includes(t)) {
+      setForm((f) => ({ ...f, technologies: [...f.technologies, t] }));
+    }
+    setTechInput("");
+  };
+
+  const removeTech = (tech: string) => {
+    setForm((f) => ({ ...f, technologies: f.technologies.filter((t) => t !== tech) }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title || !form.slug) return alert("Tytuł i slug są wymagane.");
@@ -117,7 +150,9 @@ export default function AdminPortfolioPage() {
         ...form,
         createdAt: serverTimestamp(),
       });
-      setForm({ title: "", slug: "", category: CATEGORIES[0], description: "", imageUrl: "" });
+      setForm(emptyForm);
+      setTechInput("");
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (e) {
       console.error(e);
       alert("Błąd podczas dodawania projektu.");
@@ -156,6 +191,7 @@ export default function AdminPortfolioPage() {
             <Plus className="w-5 h-5 text-primary" /> Dodaj projekt
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Tytuł */}
             <div>
               <label className="block text-sm text-muted-foreground mb-1">Tytuł *</label>
               <input
@@ -166,6 +202,8 @@ export default function AdminPortfolioPage() {
                 placeholder="Tytuł projektu"
               />
             </div>
+
+            {/* Slug */}
             <div>
               <label className="block text-sm text-muted-foreground mb-1">Slug (URL) *</label>
               <input
@@ -176,6 +214,8 @@ export default function AdminPortfolioPage() {
                 placeholder="nazwa-projektu"
               />
             </div>
+
+            {/* Kategoria */}
             <div>
               <label className="block text-sm text-muted-foreground mb-1">Kategoria</label>
               <select
@@ -186,16 +226,68 @@ export default function AdminPortfolioPage() {
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
+
+            {/* Krótki opis */}
             <div>
-              <label className="block text-sm text-muted-foreground mb-1">Opis (opcjonalnie)</label>
+              <label className="block text-sm text-muted-foreground mb-1">Krótki opis (opcjonalnie)</label>
               <textarea
-                rows={3}
+                rows={2}
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
-                placeholder="Krótki opis projektu..."
+                placeholder="Jedno zdanie — widoczne na liście projektów"
               />
             </div>
+
+            {/* Treść */}
+            <div>
+              <label className="block text-sm text-muted-foreground mb-1">Treść realizacji (opcjonalnie)</label>
+              <textarea
+                rows={6}
+                value={form.content}
+                onChange={(e) => setForm({ ...form, content: e.target.value })}
+                className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-y"
+                placeholder="Szczegółowy opis projektu, wyzwania, rozwiązania..."
+              />
+            </div>
+
+            {/* Technologie */}
+            <div>
+              <label className="block text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                <Tag className="w-3 h-3" /> Technologie
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={techInput}
+                  onChange={(e) => setTechInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTech(); } }}
+                  className="flex-1 bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
+                  placeholder="np. WordPress, Bricks..."
+                />
+                <button
+                  type="button"
+                  onClick={addTech}
+                  className="px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-xl text-white hover:border-primary/50 transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              </div>
+              {form.technologies.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {form.technologies.map((t) => (
+                    <span key={t} className="flex items-center gap-1.5 bg-primary/10 border border-primary/20 text-primary text-sm rounded-lg px-3 py-1">
+                      {t}
+                      <button type="button" onClick={() => removeTech(t)}>
+                        <X className="w-3 h-3 hover:text-white" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Zdjęcie */}
             <div>
               <label className="block text-sm text-muted-foreground mb-1 flex items-center gap-1">
                 <Image className="w-3 h-3" /> Zdjęcie (opcjonalnie)
@@ -237,6 +329,7 @@ export default function AdminPortfolioPage() {
                 </button>
               )}
             </div>
+
             <Button type="submit" disabled={saving} className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-6 rounded-xl gap-2">
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
               Dodaj projekt
@@ -252,9 +345,9 @@ export default function AdminPortfolioPage() {
               <Loader2 className="w-6 h-6 animate-spin text-primary" />
             </div>
           ) : (
-            <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
+            <div className="space-y-3 max-h-[800px] overflow-y-auto pr-1">
               {projects.map((p) => (
-                <div key={p.id} className="bg-[#111] border border-white/5 rounded-2xl p-5 flex items-center gap-4">
+                <div key={p.id} className="bg-[#111] border border-white/5 rounded-2xl p-5 flex items-start gap-4">
                   {p.imageUrl ? (
                     <img src={p.imageUrl} alt={p.title} className="w-14 h-14 rounded-xl object-cover shrink-0" />
                   ) : (
@@ -266,6 +359,13 @@ export default function AdminPortfolioPage() {
                     <p className="font-bold text-white text-sm truncate">{p.title}</p>
                     <p className="text-xs text-primary mt-0.5">{p.category}</p>
                     <p className="text-xs text-muted-foreground font-mono mt-0.5">/{p.slug}</p>
+                    {p.technologies?.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {p.technologies.map((t) => (
+                          <span key={t} className="text-xs bg-white/5 border border-white/10 text-muted-foreground rounded-md px-2 py-0.5">{t}</span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <button onClick={() => handleDelete(p.id)} className="shrink-0 text-muted-foreground hover:text-red-400 transition-colors p-2 rounded-xl hover:bg-red-500/10">
                     <Trash2 className="w-4 h-4" />
