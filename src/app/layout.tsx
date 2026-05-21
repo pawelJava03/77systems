@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { AuthProvider } from "@/context/AuthContext";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
 const inter = Inter({
@@ -83,13 +82,11 @@ export default function RootLayout({
       >
         {/* Google Tag Manager (noscript) */}
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TPN3D2T4" height="0" width="0" style={{ display: "none", visibility: "hidden" }} /></noscript>
-        <AuthProvider>
-          <SmoothScrollProvider>
-            <PublicLayout>
-              {children}
-            </PublicLayout>
-          </SmoothScrollProvider>
-        </AuthProvider>
+        <SmoothScrollProvider>
+          <PublicLayout>
+            {children}
+          </PublicLayout>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

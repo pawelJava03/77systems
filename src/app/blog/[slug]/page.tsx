@@ -1,60 +1,46 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { collection, query, where, getDocs, Timestamp } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
-import { Loader2 } from "lucide-react";
+import type { Metadata } from "next";
+import sql from "@/lib/db";
 
 interface Article {
+  id: number;
   title: string;
   slug: string;
   excerpt: string;
   content: string;
-  category?: string;
-  createdAt: Timestamp;
+  image_url: string;
+  meta_title: string;
+  meta_description: string;
+  created_at: string;
 }
 
-function formatDate(ts: Timestamp) {
-  return new Intl.DateTimeFormat("pl-PL", { dateStyle: "long" }).format(ts.toDate());
+async function getArticle(slug: string): Promise<Article | null> {
+  const [row] = await sql<Article[]>`SELECT * FROM blog WHERE slug = ${slug} LIMIT 1`;
+  return row ?? null;
 }
 
-export default function SinglePost() {
-  const { slug } = useParams<{ slug: string }>();
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState(true);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticle(slug);
+  if (!article) return {};
 
-  useEffect(() => {
-    async function load() {
-      const q = query(collection(db, "blog"), where("slug", "==", slug));
-      const snap = await getDocs(q);
-      if (!snap.empty) {
-        setArticle(snap.docs[0].data() as Article);
-      }
-      setLoading(false);
-    }
-    load();
-  }, [slug]);
+  const title = article.meta_title || article.title;
+  const description = article.meta_description || article.excerpt;
 
-  if (loading) {
-    return (
-      <main className="pt-32 pb-24 min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </main>
-    );
-  }
+  return {
+    title,
+    description,
+    openGraph: { title, description, images: article.image_url ? [article.image_url] : [] },
+  };
+}
 
-  if (!article) {
-    return (
-      <main className="pt-32 pb-24 container mx-auto px-4 min-h-screen">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-muted-foreground text-xl mb-6">Artykuł nie istnieje.</p>
-          <Link href="/blog" className="text-primary font-bold hover:underline">← Wróć do bloga</Link>
-        </div>
-      </main>
-    );
-  }
+export default async function SinglePost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticle(slug);
+  if (!article) return notFound();
+
+  const dateStr = new Intl.DateTimeFormat("pl-PL", { dateStyle: "long" }).format(new Date(article.created_at));
 
   return (
     <main className="pt-32 pb-24 container mx-auto px-4 min-h-screen">
@@ -64,14 +50,20 @@ export default function SinglePost() {
             ← Blog
           </Link>
         </div>
-        {article.category && (
-          <p className="text-xs text-primary font-mono font-bold uppercase tracking-widest mb-4">{article.category}</p>
+
+        {article.image_url && (
+          <div className="w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-white/10 mb-10">
+            <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
+          </div>
         )}
+
         <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-white">{article.title}</h1>
-        <p className="text-sm text-muted-foreground font-mono mb-10">{formatDate(article.createdAt)}</p>
+        <p className="text-sm text-muted-foreground font-mono mb-10">{dateStr}</p>
+
         {article.excerpt && (
           <p className="text-xl text-muted-foreground mb-10 border-l-2 border-primary pl-6">{article.excerpt}</p>
         )}
+
         <div className="prose prose-invert max-w-none whitespace-pre-wrap text-white/80 leading-relaxed">
           {article.content}
         </div>

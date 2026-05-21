@@ -5,8 +5,6 @@ import { Mail, Phone, MapPin, ArrowUpRight, Loader2, CheckCircle2 } from "lucide
 import { Button } from "@/components/ui/button";
 import { AudioRecorder } from "@/components/ui/AudioRecorder";
 import { motion } from "framer-motion";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
 
 const contactMethods = [
   {
@@ -45,22 +43,12 @@ export default function ContactPage() {
     setError("");
 
     try {
-      await addDoc(collection(db, "leads"), {
-        name,
-        email,
-        message,
-        audioBase64: audioBase64 ?? null,
-        contacted: false,
-        createdAt: serverTimestamp(),
-      });
-
-      // Wyślij powiadomienie email
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, audioBase64 }),
       });
-
+      if (!res.ok) throw new Error("API error");
       setSubmitted(true);
     } catch (err) {
       console.error(err);

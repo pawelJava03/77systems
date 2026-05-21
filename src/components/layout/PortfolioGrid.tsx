@@ -4,16 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Loader2 } from "lucide-react";
-import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
 
 interface Project {
-  id: string;
+  id: number;
   title: string;
   slug: string;
   category: string;
   description: string;
-  imageUrl?: string;
+  image_url: string;
 }
 
 export function PortfolioGrid() {
@@ -21,27 +19,10 @@ export function PortfolioGrid() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchLatestProjects() {
-      try {
-        const q = query(
-          collection(db, "portfolio"),
-          orderBy("createdAt", "desc"),
-          limit(3)
-        );
-        const snap = await getDocs(q);
-        const fetchedProjects = snap.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        } as Project));
-        setProjects(fetchedProjects);
-      } catch (err) {
-        console.error("Error fetching latest projects:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchLatestProjects();
+    fetch("/api/portfolio")
+      .then((r) => r.json())
+      .then((data: Project[]) => { setProjects(data.slice(0, 3)); setLoading(false); })
+      .catch(() => setLoading(false));
   }, []);
 
   if (loading) {
@@ -64,18 +45,12 @@ export function PortfolioGrid() {
       </div>
 
       <div className="flex flex-col gap-12 md:gap-16">
-        {/* Featured item (First one) */}
         {projects[0] && (
           <div className="w-full group cursor-pointer">
             <Link href={`/portfolio/${projects[0].slug}`} className="block w-full">
               <div className="w-full relative aspect-[16/9] md:aspect-[2/1] rounded-3xl overflow-hidden mb-6 bg-card border border-border">
-                {projects[0].imageUrl ? (
-                  <Image 
-                    src={projects[0].imageUrl} 
-                    alt={projects[0].title} 
-                    fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                {projects[0].image_url ? (
+                  <Image src={projects[0].image_url} alt={projects[0].title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 ) : (
                   <div className="w-full h-full bg-[#111] flex items-center justify-center">
                     <span className="font-heading font-black text-4xl text-white/5 uppercase">77Systems</span>
@@ -95,20 +70,14 @@ export function PortfolioGrid() {
           </div>
         )}
 
-        {/* 2 column grid for next items */}
         {projects.length > 1 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {projects.slice(1, 3).map((p) => (
               <div key={p.id} className="w-full group cursor-pointer">
                 <Link href={`/portfolio/${p.slug}`} className="block w-full">
                   <div className="w-full relative aspect-[4/3] rounded-3xl overflow-hidden mb-6 bg-card border border-border">
-                    {p.imageUrl ? (
-                      <Image 
-                        src={p.imageUrl} 
-                        alt={p.title} 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
+                    {p.image_url ? (
+                      <Image src={p.image_url} alt={p.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                     ) : (
                       <div className="w-full h-full bg-[#111] flex items-center justify-center">
                         <span className="font-heading font-black text-2xl text-white/5 uppercase">77Systems</span>

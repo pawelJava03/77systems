@@ -1,59 +1,58 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  collection, query, orderBy, onSnapshot,
-  doc, updateDoc, deleteDoc, Timestamp
-} from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
-import { CheckCircle2, Circle, Trash2, Play, Pause, Mic, Mail, Phone } from "lucide-react";
+import { CheckCircle2, Circle, Trash2, Play, Pause, Mic, Mail, Phone, Loader2 } from "lucide-react";
 
 interface Lead {
-  id: string;
+  id: number;
   name: string;
   email: string;
-  phone?: string;
-  message?: string;
-  audioBase64?: string;
+  phone: string;
+  message: string;
+  audio_base64: string;
   contacted: boolean;
-  createdAt: Timestamp;
+  created_at: string;
 }
 
 export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
-  const [playingId, setPlayingId] = useState<string | null>(null);
+  const [playingId, setPlayingId] = useState<number | null>(null);
   const [audioEl, setAudioEl] = useState<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    const q = query(collection(db, "leads"), orderBy("createdAt", "desc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Lead));
-      setLeads(data);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const toggleContacted = async (lead: Lead) => {
-    await updateDoc(doc(db, "leads", lead.id), { contacted: !lead.contacted });
+  const fetchLeads = async () => {
+    const res = await fetch("/api/leads");
+    const data = await res.json();
+    setLeads(data);
+    setLoading(false);
   };
 
-  const deleteLead = async (id: string) => {
+  useEffect(() => { fetchLeads(); }, []);
+
+  const toggleContacted = async (lead: Lead) => {
+    await fetch(`/api/leads/${lead.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contacted: !lead.contacted }),
+    });
+    await fetchLeads();
+  };
+
+  const deleteLead = async (id: number) => {
     if (!confirm("Czy na pewno chcesz usunąć to zgłoszenie?")) return;
-    await deleteDoc(doc(db, "leads", id));
+    await fetch(`/api/leads/${id}`, { method: "DELETE" });
+    await fetchLeads();
   };
 
   const togglePlay = (lead: Lead) => {
-    if (!lead.audioBase64) return;
+    if (!lead.audio_base64) return;
     if (playingId === lead.id && audioEl) {
       audioEl.pause();
       setPlayingId(null);
       setAudioEl(null);
     } else {
       if (audioEl) audioEl.pause();
-      // audioBase64 is a Data URL (data:audio/webm;base64,...)
-      const el = new Audio(lead.audioBase64);
+      const el = new Audio(lead.audio_base64);
       el.play();
       el.onended = () => { setPlayingId(null); setAudioEl(null); };
       setAudioEl(el);
@@ -67,7 +66,7 @@ export default function LeadsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-32">
-        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <Loader2 className="w-6 h-6 animate-spin text-primary" />
       </div>
     );
   }
@@ -91,19 +90,11 @@ export default function LeadsPage() {
 
       {notContacted.length > 0 && (
         <div className="mb-10">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
-            Nowe • {notContacted.length}
-          </h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">Nowe • {notContacted.length}</h2>
           <div className="space-y-4">
             {notContacted.map((lead) => (
-              <LeadCard
-                key={lead.id}
-                lead={lead}
-                isPlaying={playingId === lead.id}
-                onToggleContacted={toggleContacted}
-                onDelete={deleteLead}
-                onTogglePlay={togglePlay}
-              />
+              <LeadCard key={lead.id} lead={lead} isPlaying={playingId === lead.id}
+                onToggleContacted={toggleContacted} onDelete={deleteLead} onTogglePlay={togglePlay} />
             ))}
           </div>
         </div>
@@ -111,19 +102,11 @@ export default function LeadsPage() {
 
       {contacted.length > 0 && (
         <div>
-          <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
-            Skontaktowano • {contacted.length}
-          </h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Skontaktowano • {contacted.length}</h2>
           <div className="space-y-4 opacity-60">
             {contacted.map((lead) => (
-              <LeadCard
-                key={lead.id}
-                lead={lead}
-                isPlaying={playingId === lead.id}
-                onToggleContacted={toggleContacted}
-                onDelete={deleteLead}
-                onTogglePlay={togglePlay}
-              />
+              <LeadCard key={lead.id} lead={lead} isPlaying={playingId === lead.id}
+                onToggleContacted={toggleContacted} onDelete={deleteLead} onTogglePlay={togglePlay} />
             ))}
           </div>
         </div>
@@ -138,12 +121,11 @@ function LeadCard({
   lead: Lead;
   isPlaying: boolean;
   onToggleContacted: (l: Lead) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
   onTogglePlay: (l: Lead) => void;
 }) {
-  const date = lead.createdAt?.toDate?.();
-  const dateStr = date
-    ? new Intl.DateTimeFormat("pl-PL", { dateStyle: "medium", timeStyle: "short" }).format(date)
+  const dateStr = lead.created_at
+    ? new Intl.DateTimeFormat("pl-PL", { dateStyle: "medium", timeStyle: "short" }).format(new Date(lead.created_at))
     : "—";
 
   return (
@@ -151,14 +133,10 @@ function LeadCard({
       lead.contacted ? "border-white/5" : "border-primary/20 shadow-[0_0_20px_rgba(255,85,0,0.05)]"
     }`}>
       <div className="flex items-start gap-4">
-        <button
-          onClick={() => onToggleContacted(lead)}
-          className="mt-1 shrink-0 transition-transform hover:scale-110"
-        >
+        <button onClick={() => onToggleContacted(lead)} className="mt-1 shrink-0 transition-transform hover:scale-110">
           {lead.contacted
             ? <CheckCircle2 className="w-6 h-6 text-green-500" />
-            : <Circle className="w-6 h-6 text-muted-foreground hover:text-primary" />
-          }
+            : <Circle className="w-6 h-6 text-muted-foreground hover:text-primary" />}
         </button>
 
         <div className="flex-1 min-w-0">
@@ -183,23 +161,18 @@ function LeadCard({
               {lead.message}
             </p>
           )}
-          {lead.audioBase64 && (
-            <button
-              onClick={() => onTogglePlay(lead)}
-              className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors bg-primary/10 border border-primary/20 rounded-xl px-4 py-2"
-            >
+          {lead.audio_base64 && (
+            <button onClick={() => onTogglePlay(lead)}
+              className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors bg-primary/10 border border-primary/20 rounded-xl px-4 py-2">
               {isPlaying
                 ? <><Pause className="w-4 h-4" /> Zatrzymaj głosówkę</>
-                : <><Play className="w-4 h-4" /> Odtwórz głosówkę</>
-              }
+                : <><Play className="w-4 h-4" /> Odtwórz głosówkę</>}
             </button>
           )}
         </div>
 
-        <button
-          onClick={() => onDelete(lead.id)}
-          className="shrink-0 text-muted-foreground hover:text-red-400 transition-colors p-2 rounded-xl hover:bg-red-500/10"
-        >
+        <button onClick={() => onDelete(lead.id)}
+          className="shrink-0 text-muted-foreground hover:text-red-400 transition-colors p-2 rounded-xl hover:bg-red-500/10">
           <Trash2 className="w-4 h-4" />
         </button>
       </div>

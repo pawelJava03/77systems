@@ -5,8 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mic, Square, Send, ChevronRight, Loader2 } from "lucide-react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
 
 type Step = "RECORDING" | "DETAILS" | "SUCCESS";
 
@@ -78,18 +76,6 @@ export function VoiceRecorderModal() {
         reader.readAsDataURL(audioBlob);
       });
 
-      await addDoc(collection(db, "leads"), {
-        phone,
-        audioBase64,
-        name: "",
-        email: "",
-        message: "",
-        contacted: false,
-        createdAt: serverTimestamp(),
-        type: "voice",
-      });
-
-      // Wyślij powiadomienie email
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
