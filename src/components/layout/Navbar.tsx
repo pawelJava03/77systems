@@ -112,7 +112,7 @@ export function Navbar() {
                                 <service.icon className="w-6 h-6" />
                               </div>
                               <div>
-                                <h3 className="text-white font-bold text-sm mb-1 uppercase tracking-wide">{service.title}</h3>
+                                <span className="block text-white font-bold text-sm mb-1 uppercase tracking-wide">{service.title}</span>
                                 <p className="text-muted-foreground text-xs leading-relaxed">{service.description}</p>
                               </div>
                             </Link>

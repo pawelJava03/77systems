@@ -107,19 +107,21 @@ export default function Home() {
         </div>
 
         <div className="relative w-full max-w-5xl mx-auto space-y-8 z-10">
-          <h1 className="text-[2.2rem] sm:text-6xl md:text-8xl lg:text-[110px] leading-[1.2] sm:leading-[1.1] md:leading-[0.9] font-heading font-bold tracking-tighter text-foreground relative">
-            Zautomatyzujemy<br/>
-            procesy w<br/>
-            Twojej <span className="relative inline-block text-primary">
-              firmie
-              {/* Premium underline highlight */}
-              <svg className="absolute -bottom-1 lg:-bottom-3 left-0 w-full h-4 lg:h-6 text-primary pointer-events-none" viewBox="0 0 200 20" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5,15 Q100,0 195,15" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeDasharray="200" strokeDashoffset="200">
-                  <animate attributeName="stroke-dashoffset" from="200" to="0" dur="1.2s" fill="freeze" begin="0.3s" />
-                </path>
-              </svg>
-            </span>
-            
+          <div className="relative">
+            <h1 className="text-[2.2rem] sm:text-6xl md:text-8xl lg:text-[110px] leading-[1.2] sm:leading-[1.1] md:leading-[0.9] font-heading font-bold tracking-tighter text-foreground">
+              Zautomatyzujemy<br/>
+              procesy w<br/>
+              Twojej <span className="relative inline-block text-primary">
+                firmie
+                {/* Premium underline highlight */}
+                <svg className="absolute -bottom-1 lg:-bottom-3 left-0 w-full h-4 lg:h-6 text-primary pointer-events-none" viewBox="0 0 200 20" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5,15 Q100,0 195,15" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeDasharray="200" strokeDashoffset="200">
+                    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="1.2s" fill="freeze" begin="0.3s" />
+                  </path>
+                </svg>
+              </span>
+            </h1>
+
             {/* Tooltip 1 */}
             <div className="hidden lg:block absolute top-[-5%] -left-28 xl:-left-40 animate-in fade-in zoom-in-50 duration-700 [animation-delay:400ms] [animation-fill-mode:backwards]">
               <div className="flex items-center gap-2 bg-primary text-primary-foreground text-base tracking-normal font-sans font-bold px-6 py-3 rounded-2xl shadow-2xl rotate-[-6deg] whitespace-nowrap hover:scale-110 transition-transform duration-300">
@@ -128,7 +130,7 @@ export default function Home() {
                  <div className="absolute -bottom-2 right-6 w-4 h-4 bg-primary rotate-45" />
               </div>
             </div>
-            
+
             {/* Tooltip 2 */}
             <div className="hidden lg:block absolute bottom-[5%] -right-24 xl:-right-32 animate-in fade-in zoom-in-50 duration-700 [animation-delay:600ms] [animation-fill-mode:backwards]">
               <div className="flex items-center bg-[#8B5CF6] text-white text-base tracking-normal font-sans font-bold px-6 py-3 rounded-2xl shadow-2xl rotate-[6deg] whitespace-nowrap hover:scale-110 transition-transform duration-300">
@@ -136,7 +138,7 @@ export default function Home() {
                  <MousePointer2 className="absolute -top-6 -left-4 w-8 h-8 text-[#8B5CF6] fill-[#8B5CF6] animate-bounce" />
               </div>
             </div>
-          </h1>
+          </div>
           
           <p className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mt-8 relative z-10">
             Powtarzalne zadania zabijają Wasz czas — i pieniądze. Wdrażamy inteligentne automatyzacje oraz budujemy błyskawiczne strony internetowe, które razem pracują na wzrost Twojego biznesu 24/7. Bez rekrutacji. Bez nadgodzin. Bez błędów.
