@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import sql from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const BASE_URL = "https://77systems.eu";
 
 const staticRoutes: MetadataRoute.Sitemap = [
