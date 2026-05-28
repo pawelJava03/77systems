@@ -8,7 +8,6 @@ const categories = [
   "Strony internetowe",
   "Sklepy internetowe",
   "Automatyzacje & AI",
-  "SEO",
   "Social media",
 ];
 
