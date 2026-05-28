@@ -17,7 +17,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
   const { id } = await params;
   const body = await req.json();
-  const { title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description, testimonial_text, testimonial_author, testimonial_role } = body;
+  const { title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description, keywords, testimonial_text, testimonial_author, testimonial_role } = body;
 
   if (!title || !slug) return NextResponse.json({ error: "Tytuł i slug są wymagane." }, { status: 400 });
 
@@ -28,6 +28,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       image_url = ${image_url ?? ""}, project_url = ${project_url ?? ""},
       technologies = ${technologies ?? []},
       meta_title = ${meta_title ?? ""}, meta_description = ${meta_description ?? ""},
+      keywords = ${keywords ?? ""},
       testimonial_text = ${testimonial_text ?? ""}, testimonial_author = ${testimonial_author ?? ""},
       testimonial_role = ${testimonial_role ?? ""}
     WHERE id = ${Number(id)}

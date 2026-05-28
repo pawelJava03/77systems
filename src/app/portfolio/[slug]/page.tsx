@@ -17,6 +17,7 @@ interface Project {
   technologies: string[];
   meta_title: string;
   meta_description: string;
+  keywords: string;
   testimonial_text: string;
   testimonial_author: string;
   testimonial_role: string;
@@ -39,6 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title,
     description,
+    keywords: project.keywords || undefined,
     openGraph: { title, description, images: project.image_url ? [project.image_url] : [] },
   };
 }

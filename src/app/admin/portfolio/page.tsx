@@ -23,6 +23,7 @@ interface Project {
   technologies: string[];
   meta_title: string;
   meta_description: string;
+  keywords: string;
   testimonial_text: string;
   testimonial_author: string;
   testimonial_role: string;
@@ -39,6 +40,7 @@ const emptyForm = {
   technologies: [] as string[],
   meta_title: "",
   meta_description: "",
+  keywords: "",
   testimonial_text: "",
   testimonial_author: "",
   testimonial_role: "",
@@ -101,6 +103,7 @@ export default function AdminPortfolioPage() {
       technologies: p.technologies ?? [],
       meta_title: p.meta_title,
       meta_description: p.meta_description,
+      keywords: p.keywords ?? "",
       testimonial_text: p.testimonial_text ?? "",
       testimonial_author: p.testimonial_author ?? "",
       testimonial_role: p.testimonial_role ?? "",
@@ -302,6 +305,14 @@ export default function AdminPortfolioPage() {
                   className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
                   placeholder="Opis strony — ok. 160 znaków" />
                 <p className="text-xs text-muted-foreground mt-1">{form.meta_description.length}/160 znaków</p>
+              </div>
+              <div>
+                <label className="block text-sm text-muted-foreground mb-1">Keywords</label>
+                <input type="text" value={form.keywords}
+                  onChange={(e) => setForm({ ...form, keywords: e.target.value })}
+                  className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
+                  placeholder="strona internetowa, sklep, Next.js, ..." />
+                <p className="text-xs text-muted-foreground mt-1">Słowa kluczowe oddzielone przecinkami</p>
               </div>
             </div>
 
