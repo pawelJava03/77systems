@@ -17,6 +17,9 @@ interface Project {
   technologies: string[];
   meta_title: string;
   meta_description: string;
+  testimonial_text: string;
+  testimonial_author: string;
+  testimonial_role: string;
   created_at: string;
 }
 
@@ -137,6 +140,36 @@ export default async function SingleProject({ params }: { params: Promise<{ slug
               </div>
             </div>
           </div>
+
+          {/* Opinia klienta — wyświetla się tylko gdy jest wypełniona */}
+          {project.testimonial_text && (
+            <div className="mt-16 relative">
+              {/* Dekoracyjna linia */}
+              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
+              <div className="relative border border-primary/20 rounded-[2.5rem] px-10 py-12 md:px-16 md:py-14">
+                {/* Cudzysłów dekoracyjny */}
+                <svg className="absolute top-8 left-10 w-12 h-12 text-primary/20 fill-current" viewBox="0 0 32 32">
+                  <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                </svg>
+
+                <blockquote className="relative z-10 text-xl md:text-2xl text-white/90 font-light leading-relaxed italic pl-2 mb-8">
+                  {project.testimonial_text}
+                </blockquote>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-0.5 bg-primary" />
+                  <div>
+                    {project.testimonial_author && (
+                      <p className="font-bold text-white">{project.testimonial_author}</p>
+                    )}
+                    {project.testimonial_role && (
+                      <p className="text-sm text-primary">{project.testimonial_role}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </main>

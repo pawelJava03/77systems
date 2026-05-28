@@ -14,13 +14,13 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const { title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description } = body;
+  const { title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description, testimonial_text, testimonial_author, testimonial_role } = body;
 
   if (!title || !slug) return NextResponse.json({ error: "Tytuł i slug są wymagane." }, { status: 400 });
 
   const [row] = await sql`
-    INSERT INTO portfolio (title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description)
-    VALUES (${title}, ${slug}, ${category ?? ""}, ${description ?? ""}, ${content ?? ""}, ${image_url ?? ""}, ${project_url ?? ""}, ${technologies ?? []}, ${meta_title ?? ""}, ${meta_description ?? ""})
+    INSERT INTO portfolio (title, slug, category, description, content, image_url, project_url, technologies, meta_title, meta_description, testimonial_text, testimonial_author, testimonial_role)
+    VALUES (${title}, ${slug}, ${category ?? ""}, ${description ?? ""}, ${content ?? ""}, ${image_url ?? ""}, ${project_url ?? ""}, ${technologies ?? []}, ${meta_title ?? ""}, ${meta_description ?? ""}, ${testimonial_text ?? ""}, ${testimonial_author ?? ""}, ${testimonial_role ?? ""})
     RETURNING *
   `;
   return NextResponse.json(row, { status: 201 });

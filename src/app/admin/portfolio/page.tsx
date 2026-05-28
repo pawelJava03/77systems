@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Trash2, Plus, Loader2, Image, Upload, X, Tag, ExternalLink, Search } from "lucide-react";
+import { Trash2, Plus, Loader2, Image, Upload, X, Tag, ExternalLink, Search, Pencil, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CATEGORIES = [
   "Strony internetowe",
   "Sklepy internetowe",
   "Automatyzacje & AI",
-  "SEO",
   "Social media",
 ];
 
@@ -24,6 +23,9 @@ interface Project {
   technologies: string[];
   meta_title: string;
   meta_description: string;
+  testimonial_text: string;
+  testimonial_author: string;
+  testimonial_role: string;
 }
 
 const emptyForm = {
@@ -37,6 +39,9 @@ const emptyForm = {
   technologies: [] as string[],
   meta_title: "",
   meta_description: "",
+  testimonial_text: "",
+  testimonial_author: "",
+  testimonial_role: "",
 };
 
 export default function AdminPortfolioPage() {
@@ -44,9 +49,11 @@ export default function AdminPortfolioPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState(emptyForm);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [uploadProgress, setUploadProgress] = useState(false);
   const [techInput, setTechInput] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const fetchProjects = async () => {
     const res = await fetch("/api/portfolio");
@@ -81,13 +88,42 @@ export default function AdminPortfolioPage() {
     setTechInput("");
   };
 
+  const startEdit = (p: Project) => {
+    setEditingId(p.id);
+    setForm({
+      title: p.title,
+      slug: p.slug,
+      category: p.category,
+      description: p.description,
+      content: p.content,
+      image_url: p.image_url,
+      project_url: p.project_url,
+      technologies: p.technologies ?? [],
+      meta_title: p.meta_title,
+      meta_description: p.meta_description,
+      testimonial_text: p.testimonial_text ?? "",
+      testimonial_author: p.testimonial_author ?? "",
+      testimonial_role: p.testimonial_role ?? "",
+    });
+    setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setForm(emptyForm);
+    setTechInput("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title || !form.slug) return alert("Tytuł i slug są wymagane.");
     setSaving(true);
     try {
-      const res = await fetch("/api/portfolio", {
-        method: "POST",
+      const url = editingId ? `/api/portfolio/${editingId}` : "/api/portfolio";
+      const method = editingId ? "PATCH" : "POST";
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
@@ -96,12 +132,10 @@ export default function AdminPortfolioPage() {
         alert(err.error || "Błąd zapisu.");
         return;
       }
-      setForm(emptyForm);
-      setTechInput("");
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      cancelEdit();
       await fetchProjects();
     } catch {
-      alert("Błąd podczas dodawania projektu.");
+      alert("Błąd podczas zapisywania projektu.");
     } finally {
       setSaving(false);
     }
@@ -110,6 +144,7 @@ export default function AdminPortfolioPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Usuń projekt?")) return;
     await fetch(`/api/portfolio/${id}`, { method: "DELETE" });
+    if (editingId === id) cancelEdit();
     await fetchProjects();
   };
 
@@ -122,10 +157,20 @@ export default function AdminPortfolioPage() {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {/* Formularz */}
-        <div className="bg-[#111] border border-white/5 rounded-[1.5rem] p-8">
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <Plus className="w-5 h-5 text-primary" /> Dodaj projekt
-          </h2>
+        <div ref={formRef} className={`bg-[#111] border rounded-[1.5rem] p-8 transition-colors ${editingId ? "border-primary/30" : "border-white/5"}`}>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              {editingId
+                ? <><Pencil className="w-5 h-5 text-primary" /> Edytuj projekt</>
+                : <><Plus className="w-5 h-5 text-primary" /> Dodaj projekt</>}
+            </h2>
+            {editingId && (
+              <button onClick={cancelEdit} className="text-xs text-muted-foreground hover:text-white border border-white/10 hover:border-white/30 px-3 py-1.5 rounded-lg transition-colors">
+                Anuluj
+              </button>
+            )}
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm text-muted-foreground mb-1">Tytuł *</label>
@@ -167,7 +212,6 @@ export default function AdminPortfolioPage() {
                 placeholder="Szczegółowy opis projektu..." />
             </div>
 
-            {/* Link do projektu */}
             <div>
               <label className="block text-sm text-muted-foreground mb-1 flex items-center gap-1">
                 <ExternalLink className="w-3 h-3" /> Link do projektu (opcjonalnie)
@@ -206,6 +250,36 @@ export default function AdminPortfolioPage() {
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* Opinia klienta */}
+            <div className="border border-white/5 rounded-xl p-4 space-y-3">
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+                <Quote className="w-3 h-3" /> Opinia klienta (opcjonalnie)
+              </p>
+              <div>
+                <label className="block text-sm text-muted-foreground mb-1">Treść opinii</label>
+                <textarea rows={3} value={form.testimonial_text}
+                  onChange={(e) => setForm({ ...form, testimonial_text: e.target.value })}
+                  className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
+                  placeholder="Co powiedział klient o projekcie?" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm text-muted-foreground mb-1">Imię i nazwisko</label>
+                  <input type="text" value={form.testimonial_author}
+                    onChange={(e) => setForm({ ...form, testimonial_author: e.target.value })}
+                    className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
+                    placeholder="Jan Kowalski" />
+                </div>
+                <div>
+                  <label className="block text-sm text-muted-foreground mb-1">Stanowisko / firma</label>
+                  <input type="text" value={form.testimonial_role}
+                    onChange={(e) => setForm({ ...form, testimonial_role: e.target.value })}
+                    className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
+                    placeholder="CEO, NazwaFirmy.pl" />
+                </div>
+              </div>
             </div>
 
             {/* SEO */}
@@ -262,8 +336,8 @@ export default function AdminPortfolioPage() {
             </div>
 
             <Button type="submit" disabled={saving} className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-6 rounded-xl gap-2">
-              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-              Dodaj projekt
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : editingId ? <Pencil className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              {editingId ? "Zapisz zmiany" : "Dodaj projekt"}
             </Button>
           </form>
         </div>
@@ -278,7 +352,8 @@ export default function AdminPortfolioPage() {
           ) : (
             <div className="space-y-3 max-h-[900px] overflow-y-auto pr-1">
               {projects.map((p) => (
-                <div key={p.id} className="bg-[#111] border border-white/5 rounded-2xl p-5 flex items-start gap-4">
+                <div key={p.id}
+                  className={`bg-[#111] border rounded-2xl p-5 flex items-start gap-4 transition-colors ${editingId === p.id ? "border-primary/30" : "border-white/5"}`}>
                   {p.image_url ? (
                     <img src={p.image_url} alt={p.title} className="w-14 h-14 rounded-xl object-cover shrink-0" />
                   ) : (
@@ -296,6 +371,11 @@ export default function AdminPortfolioPage() {
                         <ExternalLink className="w-3 h-3" /> Projekt
                       </a>
                     )}
+                    {p.testimonial_text && (
+                      <p className="text-xs text-primary/70 mt-1 flex items-center gap-1">
+                        <Quote className="w-3 h-3" /> Opinia: {p.testimonial_author || "anonimowa"}
+                      </p>
+                    )}
                     {p.technologies?.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-2">
                         {p.technologies.map((t) => (
@@ -304,10 +384,16 @@ export default function AdminPortfolioPage() {
                       </div>
                     )}
                   </div>
-                  <button onClick={() => handleDelete(p.id)}
-                    className="shrink-0 text-muted-foreground hover:text-red-400 transition-colors p-2 rounded-xl hover:bg-red-500/10">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <div className="flex flex-col gap-1 shrink-0">
+                    <button onClick={() => startEdit(p)}
+                      className={`text-muted-foreground hover:text-primary transition-colors p-2 rounded-xl hover:bg-primary/10 ${editingId === p.id ? "text-primary bg-primary/10" : ""}`}>
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => handleDelete(p.id)}
+                      className="text-muted-foreground hover:text-red-400 transition-colors p-2 rounded-xl hover:bg-red-500/10">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
