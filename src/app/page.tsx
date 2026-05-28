@@ -275,7 +275,29 @@ export default function Home() {
               </div>
             </a>
 
-            {/* TODO: opinia 3 */}
+            {/* Krystian — lidmir.pl */}
+            <a
+              href="https://lidmir.pl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 rounded-3xl bg-card border border-border hover:border-primary/50 transition-colors relative block"
+            >
+              <div className="flex gap-1 mb-6 text-primary">
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+              </div>
+              <p className="text-lg italic mb-8">"Pełen profesjonalizm! 77systems stworzyło dla mnie nowoczesną stronę internetową, która realnie zwiększyła liczbę zapytań i zamówień. Strona szybka, responsywna i dobrze widoczna w Google. Widać duże doświadczenie w SEO i marketingu internetowym. Zdecydowanie polecam!"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <div>
+                  <p className="font-bold group-hover:text-primary transition-colors">Krystian</p>
+                  <p className="text-sm text-muted-foreground">lidmir.pl</p>
+                </div>
+              </div>
+            </a>
 
          </div>
          <div className="mt-12 text-center">
