@@ -12,13 +12,18 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const { title, slug, excerpt, content, image_url, meta_title, meta_description } = body;
+  const { title, slug, excerpt, content, image_url, image_alt, meta_title, meta_description, category, keywords } = body;
 
   if (!title || !slug) return NextResponse.json({ error: "Tytuł i slug są wymagane." }, { status: 400 });
 
   const [row] = await sql`
-    INSERT INTO blog (title, slug, excerpt, content, image_url, meta_title, meta_description)
-    VALUES (${title}, ${slug}, ${excerpt ?? ""}, ${content ?? ""}, ${image_url ?? ""}, ${meta_title ?? ""}, ${meta_description ?? ""})
+    INSERT INTO blog (title, slug, excerpt, content, image_url, image_alt, meta_title, meta_description, category, keywords)
+    VALUES (
+      ${title}, ${slug}, ${excerpt ?? ""}, ${content ?? ""},
+      ${image_url ?? ""}, ${image_alt ?? ""},
+      ${meta_title ?? ""}, ${meta_description ?? ""},
+      ${category ?? ""}, ${keywords ?? ""}
+    )
     RETURNING *
   `;
   return NextResponse.json(row, { status: 201 });

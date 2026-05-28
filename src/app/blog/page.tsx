@@ -13,6 +13,8 @@ interface Post {
   slug: string;
   excerpt: string;
   image_url: string;
+  image_alt: string;
+  category: string;
   created_at: string;
 }
 
@@ -28,7 +30,7 @@ export default function BlogPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  const filtered = activeCategory === ALL ? posts : posts;
+  const filtered = activeCategory === ALL ? posts : posts.filter((p) => p.category === activeCategory);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] overflow-hidden pt-32 pb-24">
@@ -86,7 +88,7 @@ export default function BlogPage() {
                   <div className="aspect-video bg-[#1A1A1A] relative overflow-hidden">
                     <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors z-10" />
                     {p.image_url ? (
-                      <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={p.image_url} alt={p.image_alt || p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:scale-105 transition-transform duration-500">
                         <span className="font-heading font-black text-4xl text-white mix-blend-overlay">77SYSTEMS</span>

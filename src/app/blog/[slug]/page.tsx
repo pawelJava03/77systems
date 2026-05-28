@@ -10,8 +10,11 @@ interface Article {
   excerpt: string;
   content: string;
   image_url: string;
+  image_alt: string;
   meta_title: string;
   meta_description: string;
+  keywords: string;
+  category: string;
   created_at: string;
 }
 
@@ -31,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title,
     description,
+    keywords: article.keywords || undefined,
     openGraph: { title, description, images: article.image_url ? [article.image_url] : [] },
   };
 }
@@ -53,7 +57,7 @@ export default async function SinglePost({ params }: { params: Promise<{ slug: s
 
         {article.image_url && (
           <div className="w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-white/10 mb-10">
-            <img src={article.image_url} alt={article.title} className="w-full h-full object-cover" />
+            <img src={article.image_url} alt={article.image_alt || article.title} className="w-full h-full object-cover" />
           </div>
         )}
 
