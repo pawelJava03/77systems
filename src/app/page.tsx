@@ -251,7 +251,30 @@ export default function Home() {
               </div>
             </a>
 
-            {/* TODO: opinia 2 */}
+            {/* Agnieszka — formapsyche.pl */}
+            <a
+              href="https://formapsyche.pl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 rounded-3xl bg-card border border-border hover:border-primary/50 transition-colors relative block"
+            >
+              <div className="flex gap-1 mb-6 text-primary">
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+              </div>
+              <p className="text-lg italic mb-8">"Dziękuję za pomoc. Po raz pierwszy spotkałam się w tej branży z tak szybkim i profesjonalnym podejściem. Będę polecać dalej."</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <div>
+                  <p className="font-bold group-hover:text-primary transition-colors">Agnieszka</p>
+                  <p className="text-sm text-muted-foreground">formapsyche.pl</p>
+                </div>
+              </div>
+            </a>
+
             {/* TODO: opinia 3 */}
 
          </div>
