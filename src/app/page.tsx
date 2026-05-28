@@ -243,7 +243,7 @@ export default function Home() {
               </div>
               <p className="text-lg italic mb-8">"Paweł to prawdziwy profesjonalista, jeśli chodzi o tworzenie stron, jak i całe podejście do tematu. Doskonale rozumie potrzeby klienta i rzeczy niemożliwe załatwia od ręki, a na cuda trzeba kilka dni poczekać."</p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <img src="/testimonials/mateusz-sobierski.jpg" alt="Mateusz Sobierski" className="w-12 h-12 rounded-full object-cover bg-secondary" />
                 <div>
                   <p className="font-bold group-hover:text-primary transition-colors">Mateusz Sobierski</p>
                   <p className="text-sm text-muted-foreground">Marketingowiec</p>
@@ -267,7 +267,7 @@ export default function Home() {
               </div>
               <p className="text-lg italic mb-8">"Dziękuję za pomoc. Po raz pierwszy spotkałam się w tej branży z tak szybkim i profesjonalnym podejściem. Będę polecać dalej."</p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <img src="https://formapsyche.pl/wp-content/uploads/2025/12/Aga-szara.webp" alt="Agnieszka" className="w-12 h-12 rounded-full object-cover bg-secondary" />
                 <div>
                   <p className="font-bold group-hover:text-primary transition-colors">Agnieszka</p>
                   <p className="text-sm text-muted-foreground">formapsyche.pl</p>
@@ -291,7 +291,7 @@ export default function Home() {
               </div>
               <p className="text-lg italic mb-8">"Pełen profesjonalizm! 77systems stworzyło dla mnie nowoczesną stronę internetową, która realnie zwiększyła liczbę zapytań i zamówień. Strona szybka, responsywna i dobrze widoczna w Google. Widać duże doświadczenie w SEO i marketingu internetowym. Zdecydowanie polecam!"</p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <img src="https://lidmir.pl/wp-content/uploads/2026/04/logo-lidmir.png" alt="lidmir.pl" className="w-12 h-12 rounded-full object-cover bg-secondary p-1" />
                 <div>
                   <p className="font-bold group-hover:text-primary transition-colors">Krystian</p>
                   <p className="text-sm text-muted-foreground">lidmir.pl</p>
