@@ -226,25 +226,34 @@ export default function Home() {
       <section className="container px-4 py-16 md:py-32">
          <h2 className="text-center mb-16">Klienci <span className="text-primary">nie kłamią.</span></h2>
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="p-8 rounded-3xl bg-card border border-border relative">
-                <div className="flex gap-1 mb-6 text-primary">
-                  <Star className="w-5 h-5 fill-primary" />
-                  <Star className="w-5 h-5 fill-primary" />
-                  <Star className="w-5 h-5 fill-primary" />
-                  <Star className="w-5 h-5 fill-primary" />
-                  <Star className="w-5 h-5 fill-primary" />
-                </div>
-                <p className="text-lg italic mb-8">"Zatrudnienie 77systems to była najlepsza decyzja dla naszej firmy. Platforma działa błyskawicznie, a proces wdrożenia był perfekcyjny."</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-secondary" />
-                  <div>
-                    <p className="font-bold">Jan Kowalski</p>
-                    <p className="text-sm text-muted-foreground">CEO, TechStartup</p>
-                  </div>
+
+            {/* Mateusz Sobierski */}
+            <a
+              href="https://www.instagram.com/mateusz_sobierski/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 rounded-3xl bg-card border border-border hover:border-primary/50 transition-colors relative block"
+            >
+              <div className="flex gap-1 mb-6 text-primary">
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+              </div>
+              <p className="text-lg italic mb-8">"Paweł to prawdziwy profesjonalista, jeśli chodzi o tworzenie stron, jak i całe podejście do tematu. Doskonale rozumie potrzeby klienta i rzeczy niemożliwe załatwia od ręki, a na cuda trzeba kilka dni poczekać."</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-secondary" />
+                <div>
+                  <p className="font-bold group-hover:text-primary transition-colors">Mateusz Sobierski</p>
+                  <p className="text-sm text-muted-foreground">Marketingowiec</p>
                 </div>
               </div>
-            ))}
+            </a>
+
+            {/* TODO: opinia 2 */}
+            {/* TODO: opinia 3 */}
+
          </div>
          <div className="mt-12 text-center">
            <a
