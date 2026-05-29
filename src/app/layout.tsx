@@ -17,6 +17,9 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   verification: {
     google: "GlBbBVfgx8pHGI-yt13rgQ4LjbVLeq0Cgeos8UFAQw8",
+    other: {
+      "msvalidate.01": "797E78482729AD1E5F0D0D5D55E4613D",
+    },
   },
   title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
   description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt ➜ Wdrożenie w tygodnie, nie miesiące.",
