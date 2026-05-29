@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (v) => Math.round(v));
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1400);
-    return () => clearTimeout(timer);
+    const controls = animate(count, 100, { duration: 1.1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] });
+    const unsub = rounded.on("change", (v) => setDisplay(v));
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => { controls.stop(); unsub(); clearTimeout(timer); };
   }, []);
 
   return (
@@ -138,28 +143,29 @@ export function Preloader() {
               </motion.g>
             </svg>
 
-            {/* Subtle orange line under the "77" mark */}
+            {/* Progress bar pod logo */}
             <motion.div
-              className="absolute left-0 bottom-[-6px] h-[2px] bg-gradient-to-r from-[#ff751f] to-transparent"
-              initial={{ width: "0%" }}
-              animate={{ width: "38%" }}
-              transition={{ duration: 0.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </motion.div>
-
-          {/* Progress bar */}
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 w-36 h-[2px] bg-white/8 rounded-full overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.4 }}
-          >
-            <motion.div
-              className="h-full bg-[#ff751f] rounded-full origin-left"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.0, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            />
+              className="mt-6 w-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+            >
+              {/* Licznik i etykieta */}
+              <div className="flex items-center justify-between mb-2 px-0.5">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white/30">Ładowanie</span>
+                <span className="text-[11px] font-mono font-bold text-[#ff751f] tabular-nums">{display}%</span>
+              </div>
+              {/* Track */}
+              <div className="w-full h-[3px] bg-white/8 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ background: "linear-gradient(to right, #ff751f, #ff9a4d)" }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 1.1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                />
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       )}
