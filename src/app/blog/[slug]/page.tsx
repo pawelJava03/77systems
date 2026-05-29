@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import sql from "@/lib/db";
+import ReactMarkdown from "react-markdown";
 
 interface Article {
   id: number;
@@ -79,8 +80,8 @@ export default async function SinglePost({ params }: { params: Promise<{ slug: s
           <p className="text-xl text-muted-foreground mb-10 border-l-2 border-primary pl-6">{article.excerpt}</p>
         )}
 
-        <div className="prose prose-invert max-w-none whitespace-pre-wrap text-white/80 leading-relaxed">
-          {article.content}
+        <div className="prose prose-invert prose-headings:font-heading prose-headings:text-white prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-p:text-white/80 prose-p:leading-relaxed prose-strong:text-white prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-li:text-white/80 prose-hr:border-white/10 prose-blockquote:border-primary prose-blockquote:text-white/60 max-w-none">
+          <ReactMarkdown>{article.content}</ReactMarkdown>
         </div>
       </article>
     </main>
