@@ -85,30 +85,45 @@ export default function Home() {
 
       {/* 1. Hero Section (Roasti Style) */}
       <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center text-center pt-40 md:pt-48 pb-16 md:pb-32 px-4">
-        {/* Sharp Animated 3D Grid Background */}
-        <div className="absolute inset-0 -z-10 bg-[#050505] overflow-hidden" style={{ perspective: '800px' }}>
-          {/* 3D Grid Floor */}
-          <div 
-            className="absolute inset-x-[-50%] bottom-[-20%] h-[120%] origin-bottom opacity-50" 
-            style={{ 
+        {/* Background */}
+        <div className="absolute inset-0 -z-10 bg-[#050505] overflow-hidden">
+
+          {/* Flat grid — widoczna na wszystkich ekranach */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: 'linear-gradient(to right,rgba(255,85,0,0.35) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,85,0,0.35) 1px,transparent 1px)',
+              backgroundSize: '3.5rem 3.5rem',
+              maskImage: 'radial-gradient(ellipse 80% 70% at 50% 30%, black 20%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 30%, black 20%, transparent 100%)',
+            }}
+          />
+
+          {/* 3D Grid Floor — tylko desktop */}
+          <div
+            className="hidden md:block absolute inset-x-[-50%] bottom-[-20%] h-[120%] origin-bottom opacity-40"
+            style={{
               transform: 'rotateX(65deg)',
-              maskImage: 'linear-gradient(to top, black 10%, transparent 80%)',
-              WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 80%)'
+              maskImage: 'linear-gradient(to top, black 10%, transparent 75%)',
+              WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 75%)',
             }}
           >
-             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,85,0,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,85,0,0.2)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-grid-move" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,85,0,0.25)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,85,0,0.25)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-grid-move" />
           </div>
-          
-          {/* Sharp glowing accent light at the horizon */}
-          <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-[600px] h-[150px] bg-primary/10 blur-[60px] rounded-[100%] pointer-events-none" />
-          
-          {/* Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505]" />
+
+          {/* Pomarańczowa poświata — centrum */}
+          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] md:w-[800px] md:h-[400px] bg-primary/15 blur-[80px] rounded-[100%] pointer-events-none" />
+
+          {/* Fioletowy akcent — prawy dół */}
+          <div className="absolute bottom-[10%] right-[5%] w-[300px] h-[200px] bg-[#8B5CF6]/10 blur-[80px] rounded-[100%] pointer-events-none" />
+
+          {/* Winieta góra/dół */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
         </div>
 
         <div className="relative w-full max-w-5xl mx-auto space-y-8 z-10">
           <div className="relative">
-            <h1 className="text-[2.2rem] sm:text-6xl md:text-8xl lg:text-[110px] leading-[1.2] sm:leading-[1.1] md:leading-[0.9] font-heading font-bold tracking-tighter text-foreground">
+            <h1 className="text-[42px] sm:text-6xl md:text-8xl lg:text-[110px] leading-[1.15] sm:leading-[1.1] md:leading-[0.9] font-heading font-bold tracking-tighter text-foreground">
               Zautomatyzujemy<br/>
               procesy w<br/>
               Twojej <span className="relative inline-block text-primary">
