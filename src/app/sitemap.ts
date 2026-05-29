@@ -6,15 +6,15 @@ export const dynamic = "force-dynamic";
 const BASE_URL = "https://77systems.eu";
 
 const staticRoutes: MetadataRoute.Sitemap = [
-  { url: `${BASE_URL}/`, changeFrequency: "weekly", priority: 1.0 },
-  { url: `${BASE_URL}/uslugi`, changeFrequency: "monthly", priority: 0.9 },
-  { url: `${BASE_URL}/uslugi/web-development`, changeFrequency: "monthly", priority: 0.8 },
-  { url: `${BASE_URL}/uslugi/automatyzacje-ai`, changeFrequency: "monthly", priority: 0.8 },
-  { url: `${BASE_URL}/uslugi/seo`, changeFrequency: "monthly", priority: 0.8 },
-  { url: `${BASE_URL}/uslugi/social-media`, changeFrequency: "monthly", priority: 0.8 },
-  { url: `${BASE_URL}/portfolio`, changeFrequency: "weekly", priority: 0.8 },
-  { url: `${BASE_URL}/blog`, changeFrequency: "weekly", priority: 0.7 },
-  { url: `${BASE_URL}/kontakt`, changeFrequency: "yearly", priority: 0.6 },
+  { url: `${BASE_URL}/`, lastModified: new Date("2026-05-29"), changeFrequency: "weekly", priority: 1.0 },
+  { url: `${BASE_URL}/uslugi`, lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.9 },
+  { url: `${BASE_URL}/uslugi/web-development`, lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
+  { url: `${BASE_URL}/uslugi/automatyzacje-ai`, lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
+  { url: `${BASE_URL}/uslugi/seo`, lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
+  { url: `${BASE_URL}/uslugi/social-media`, lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
+  { url: `${BASE_URL}/portfolio`, lastModified: new Date("2026-05-29"), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${BASE_URL}/blog`, lastModified: new Date("2026-05-29"), changeFrequency: "weekly", priority: 0.7 },
+  { url: `${BASE_URL}/kontakt`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.6 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

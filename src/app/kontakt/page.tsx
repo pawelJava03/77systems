@@ -58,8 +58,18 @@ export default function ContactPage() {
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://77systems.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Kontakt", "item": "https://77systems.eu/kontakt" },
+    ],
+  };
+
   return (
     <main className="min-h-screen pt-48 pb-24 relative overflow-hidden bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="absolute top-24 left-1/2 -translate-x-1/2 text-[22vw] whitespace-nowrap font-heading font-black text-primary/5 pointer-events-none select-none z-0 leading-none">
         KONTAKT
       </div>

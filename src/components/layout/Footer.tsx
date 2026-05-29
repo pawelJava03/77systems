@@ -55,7 +55,7 @@ export function Footer() {
                   </svg>
                 </div>
                 <span className="text-xs text-muted-foreground leading-relaxed group-hover:text-white/80 transition-colors select-none">
-                  Wyrażam zgodę na przesyłanie informacji handlowych drogą elektroniczną. Wiem, że zgodę mogę wycofać w dowolnym momencie. Zobacz naszą <a href="/polityka-prywatnosci" className="text-primary hover:underline">Politykę Prywatności</a>.
+                  Wyrażam zgodę na przesyłanie informacji handlowych drogą elektroniczną. Wiem, że zgodę mogę wycofać w dowolnym momencie. Zobacz naszą <a href="/polityka-prywatnosci" className="text-primary underline">Politykę Prywatności</a>.
                 </span>
               </label>
             </form>

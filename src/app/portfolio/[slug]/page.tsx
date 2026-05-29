@@ -52,8 +52,19 @@ export default async function SingleProject({ params }: { params: Promise<{ slug
 
   const displayContent = project.content || project.description;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://77systems.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://77systems.eu/portfolio" },
+      { "@type": "ListItem", "position": 3, "name": project.title, "item": `https://77systems.eu/portfolio/${project.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] pt-32 pb-24 relative overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">

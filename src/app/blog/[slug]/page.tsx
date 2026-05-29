@@ -46,8 +46,19 @@ export default async function SinglePost({ params }: { params: Promise<{ slug: s
 
   const dateStr = new Intl.DateTimeFormat("pl-PL", { dateStyle: "long" }).format(new Date(article.created_at));
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://77systems.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://77systems.eu/blog" },
+      { "@type": "ListItem", "position": 3, "name": article.title, "item": `https://77systems.eu/blog/${article.slug}` },
+    ],
+  };
+
   return (
     <main className="pt-32 pb-24 container mx-auto px-4 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <article className="max-w-3xl mx-auto">
         <div className="mb-8">
           <Link href="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono">

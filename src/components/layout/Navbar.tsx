@@ -147,7 +147,7 @@ export function Navbar() {
             {/* Mobile: CTA pill */}
             <Link
               href="/kontakt"
-              className="md:hidden inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-bold uppercase tracking-wider text-white shadow-[0_0_15px_rgba(255,85,0,0.4)]"
+              className="md:hidden inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-bold uppercase tracking-wider text-black shadow-[0_0_15px_rgba(255,85,0,0.4)]"
             >
               Kontakt
             </Link>
@@ -238,7 +238,7 @@ export function Navbar() {
           <div className="px-6 py-6 border-t border-white/10">
             <Link
               href="/kontakt"
-              className="flex items-center justify-center gap-2 w-full rounded-full bg-primary py-4 text-sm font-bold uppercase tracking-wider text-white shadow-[0_0_20px_rgba(255,85,0,0.3)]"
+              className="flex items-center justify-center gap-2 w-full rounded-full bg-primary py-4 text-sm font-bold uppercase tracking-wider text-black shadow-[0_0_20px_rgba(255,85,0,0.3)]"
             >
               Kontakt <ArrowRight className="w-4 h-4" />
             </Link>

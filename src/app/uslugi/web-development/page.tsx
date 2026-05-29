@@ -13,6 +13,16 @@ export const metadata: Metadata = {
   }
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://77systems.eu/" },
+    { "@type": "ListItem", "position": 2, "name": "Usługi", "item": "https://77systems.eu/uslugi" },
+    { "@type": "ListItem", "position": 3, "name": "Web Development", "item": "https://77systems.eu/uslugi/web-development" },
+  ],
+};
+
 export default function WebDevelopmentPage() {
   const faqList = [
     {
@@ -35,6 +45,7 @@ export default function WebDevelopmentPage() {
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] overflow-hidden pt-32 pb-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* 1. Header Section */}
       <div className="container mx-auto px-4 mb-24 max-w-6xl">
         <div className="flex items-center gap-3 text-muted-foreground font-mono text-sm uppercase tracking-widest mb-6">

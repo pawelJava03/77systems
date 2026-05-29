@@ -19,7 +19,7 @@ export function ServicesBentoGrid() {
           </div>
           <h3 className="text-3xl font-heading font-bold mb-3 text-white group-hover:text-green-500 transition-colors">Web Development</h3>
           <p className="text-muted-foreground mb-8">Strony, które zarabiają — nie tylko wyglądają. Budujemy błyskawiczne aplikacje w Next.js i WordPress, które konwertują odwiedzającego w klienta.</p>
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-green-500 text-white font-bold text-sm hover:bg-green-600 transition-colors w-fit">
+          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-green-500 text-black font-bold text-sm hover:bg-green-400 transition-colors w-fit">
             Pokaż mi stronę <ArrowRight className="w-4 h-4" />
           </span>
         </div>

@@ -104,7 +104,7 @@ export function VoiceRecorderModal() {
       setOpen(val);
       if(!val) setTimeout(resetModal, 300);
     }}>
-      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap text-sm bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-full font-medium shadow-[0_0_20px_rgba(255,85,0,0.4)] hover:shadow-[0_0_30px_rgba(255,85,0,0.6)] transition-all gap-2">
+      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap text-sm bg-primary text-black hover:bg-primary/90 h-12 px-8 rounded-full font-medium shadow-[0_0_20px_rgba(255,85,0,0.4)] hover:shadow-[0_0_30px_rgba(255,85,0,0.6)] transition-all gap-2">
         <Mic className="w-5 h-5" />
         Zostaw głosówkę — oddzwonimy
       </DialogTrigger>
