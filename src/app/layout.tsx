@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://77systems.eu/og-image.jpg",
+        url: "https://77systems.eu/og-image.png",
         width: 1200,
         height: 630,
         alt: "77systems — Automatyzacje AI & Strony WWW dla Firm",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
     description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt — wdrożenie w tygodnie.",
-    images: ["https://77systems.eu/og-image.jpg"],
+    images: ["https://77systems.eu/og-image.png"],
   },
 };
 
