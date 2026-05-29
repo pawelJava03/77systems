@@ -31,6 +31,20 @@ export const metadata: Metadata = {
     siteName: "77systems",
     locale: "pl_PL",
     type: "website",
+    images: [
+      {
+        url: "https://77systems.eu/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "77systems — Automatyzacje AI & Strony WWW dla Firm",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
+    description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt — wdrożenie w tygodnie.",
+    images: ["https://77systems.eu/og-image.jpg"],
   },
 };
 
@@ -45,6 +59,7 @@ export default function RootLayout({
     "name": "77systems",
     "url": "https://77systems.eu",
     "email": "contact@77systems.eu",
+    "telephone": "+48699715591",
     "description": "Agencja automatyzacji procesów biznesowych i tworzenia stron internetowych. Obsługujemy firmy z Kielc, Warszawy i Śląska.",
     "areaServed": [
       { "@type": "City", "name": "Kielce" },
@@ -62,7 +77,35 @@ export default function RootLayout({
     "sameAs": [
       "https://www.facebook.com/77systems",
       "https://www.instagram.com/77systems",
-      "https://www.linkedin.com/company/77systems"
+      "https://www.linkedin.com/company/77systems",
+      "https://maps.app.goo.gl/HBea9AgEoFnunDRN8"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "3",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Mateusz Sobierski" },
+        "reviewBody": "Paweł to prawdziwy profesjonalista, jeśli chodzi o tworzenie stron, jak i całe podejście do tematu. Doskonale rozumie potrzeby klienta i rzeczy niemożliwe załatwia od ręki, a na cuda trzeba kilka dni poczekać."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Agnieszka" },
+        "reviewBody": "Dziękuję za pomoc. Po raz pierwszy spotkałam się w tej branży z tak szybkim i profesjonalnym podejściem. Będę polecać dalej."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "author": { "@type": "Person", "name": "Krystian" },
+        "reviewBody": "Pełen profesjonalizm! 77systems stworzyło dla mnie nowoczesną stronę internetową, która realnie zwiększyła liczbę zapytań i zamówień. Strona szybka, responsywna i dobrze widoczna w Google. Zdecydowanie polecam!"
+      }
     ]
   };
 

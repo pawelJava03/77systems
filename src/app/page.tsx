@@ -302,7 +302,7 @@ export default function Home() {
          </div>
          <div className="mt-12 text-center">
            <a
-             href="https://maps.google.com"
+             href="https://maps.app.goo.gl/HBea9AgEoFnunDRN8"
              target="_blank"
              rel="noopener noreferrer"
              className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest"
