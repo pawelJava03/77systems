@@ -20,6 +20,11 @@ export async function GET() {
       )
     `;
 
+    await sql`ALTER TABLE portfolio ADD COLUMN IF NOT EXISTS keywords TEXT DEFAULT ''`;
+    await sql`ALTER TABLE portfolio ADD COLUMN IF NOT EXISTS testimonial_text TEXT DEFAULT ''`;
+    await sql`ALTER TABLE portfolio ADD COLUMN IF NOT EXISTS testimonial_author TEXT DEFAULT ''`;
+    await sql`ALTER TABLE portfolio ADD COLUMN IF NOT EXISTS testimonial_role TEXT DEFAULT ''`;
+
     await sql`
       CREATE TABLE IF NOT EXISTS blog (
         id SERIAL PRIMARY KEY,
@@ -28,11 +33,18 @@ export async function GET() {
         excerpt TEXT DEFAULT '',
         content TEXT DEFAULT '',
         image_url TEXT DEFAULT '',
+        image_alt TEXT DEFAULT '',
         meta_title TEXT DEFAULT '',
         meta_description TEXT DEFAULT '',
+        keywords TEXT DEFAULT '',
+        category TEXT DEFAULT '',
         created_at TIMESTAMPTZ DEFAULT NOW()
       )
     `;
+
+    await sql`ALTER TABLE blog ADD COLUMN IF NOT EXISTS image_alt TEXT DEFAULT ''`;
+    await sql`ALTER TABLE blog ADD COLUMN IF NOT EXISTS keywords TEXT DEFAULT ''`;
+    await sql`ALTER TABLE blog ADD COLUMN IF NOT EXISTS category TEXT DEFAULT ''`;
 
     await sql`
       CREATE TABLE IF NOT EXISTS leads (
