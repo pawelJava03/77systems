@@ -26,6 +26,17 @@ async function getArticle(slug: string): Promise<Article | null> {
   return row ?? null;
 }
 
+function extractFaqSchema(markdown: string) {
+  const items: { question: string; answer: string }[] = [];
+  const re = /^###\s+(.+\?)\s*\n+([\s\S]*?)(?=\n#{2,3}\s|\n*$)/gm;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(markdown)) !== null) {
+    const answer = match[2].replace(/\n+/g, " ").replace(/[*_`]/g, "").trim();
+    if (answer) items.push({ question: match[1].trim(), answer });
+  }
+  return items;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug);
@@ -149,9 +160,23 @@ export default async function SinglePost({ params }: { params: Promise<{ slug: s
     ],
   };
 
+  const faqItems = extractFaqSchema(article.content);
+  const faqSchema = faqItems.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+    })),
+  } : null;
+
   return (
     <main className="min-h-screen bg-[#050505] pt-32 pb-32">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       {/* Hero image */}
       {article.image_url && (
