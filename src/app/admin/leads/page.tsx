@@ -126,7 +126,7 @@ function LeadCard({
 }) {
   const dateStr = lead.created_at
     ? new Intl.DateTimeFormat("pl-PL", { dateStyle: "medium", timeStyle: "short" }).format(new Date(lead.created_at))
-    : "—";
+    : "-";
 
   return (
     <div className={`bg-[#111] border rounded-[1.5rem] p-6 transition-all ${

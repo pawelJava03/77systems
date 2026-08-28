@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
-    description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt — wdrożenie w tygodnie.",
+    description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt - wdrożenie w tygodnie.",
     url: "https://77systems.eu",
     siteName: "77systems",
     locale: "pl_PL",
@@ -39,14 +39,14 @@ export const metadata: Metadata = {
         url: "https://77systems.eu/og-image.png",
         width: 1200,
         height: 630,
-        alt: "77systems — Automatyzacje AI & Strony WWW dla Firm",
+        alt: "77systems - Automatyzacje AI & Strony WWW dla Firm",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Automatyzacje AI & Strony WWW dla Firm | 77systems",
-    description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt — wdrożenie w tygodnie.",
+    description: "Automatyzujemy procesy i tworzymy szybkie strony internetowe dla firm z Kielc, Warszawy i Śląska. Darmowy audyt - wdrożenie w tygodnie.",
     images: ["https://77systems.eu/og-image.png"],
   },
 };

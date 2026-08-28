@@ -204,7 +204,7 @@ export default function AdminPortfolioPage() {
               <textarea rows={2} value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
-                placeholder="Jedno zdanie — widoczne na liście projektów" />
+                placeholder="Jedno zdanie - widoczne na liście projektów" />
             </div>
 
             <div>
@@ -295,7 +295,7 @@ export default function AdminPortfolioPage() {
                 <input type="text" value={form.meta_title}
                   onChange={(e) => setForm({ ...form, meta_title: e.target.value })}
                   className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
-                  placeholder="Tytuł strony — ok. 60 znaków" />
+                  placeholder="Tytuł strony - ok. 60 znaków" />
                 <p className="text-xs text-muted-foreground mt-1">{form.meta_title.length}/60 znaków</p>
               </div>
               <div>
@@ -303,7 +303,7 @@ export default function AdminPortfolioPage() {
                 <textarea rows={2} value={form.meta_description}
                   onChange={(e) => setForm({ ...form, meta_description: e.target.value })}
                   className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
-                  placeholder="Opis strony — ok. 160 znaków" />
+                  placeholder="Opis strony - ok. 160 znaków" />
                 <p className="text-xs text-muted-foreground mt-1">{form.meta_description.length}/160 znaków</p>
               </div>
               <div>

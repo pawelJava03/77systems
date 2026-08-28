@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       VALUES (${name ?? ""}, ${email ?? ""}, ${phone ?? ""}, ${message ?? ""}, ${audioBase64 ?? ""})
     `;
 
-    // Email w tle — nie blokuje odpowiedzi
+    // Email w tle - nie blokuje odpowiedzi
     sendNotification({ name: name ?? "", email: email ?? "", phone: phone ?? "", message: message ?? "", audioBase64: audioBase64 ?? "" })
       .catch((err) => console.error("Email error:", err));
 

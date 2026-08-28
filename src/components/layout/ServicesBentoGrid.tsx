@@ -18,7 +18,7 @@ export function ServicesBentoGrid() {
             <Code2 className="w-6 h-6" />
           </div>
           <h3 className="text-3xl font-heading font-bold mb-3 text-white group-hover:text-green-500 transition-colors">Web Development</h3>
-          <p className="text-muted-foreground mb-8">Strony, które zarabiają — nie tylko wyglądają. Budujemy błyskawiczne aplikacje w Next.js i WordPress, które konwertują odwiedzającego w klienta.</p>
+          <p className="text-muted-foreground mb-8">Strony, które zarabiają - nie tylko wyglądają. Budujemy błyskawiczne aplikacje w Next.js i WordPress, które konwertują odwiedzającego w klienta.</p>
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-green-500 text-black font-bold text-sm hover:bg-green-400 transition-colors w-fit">
             Pokaż mi stronę <ArrowRight className="w-4 h-4" />
           </span>
@@ -62,7 +62,7 @@ export function ServicesBentoGrid() {
             <Settings className="w-6 h-6" />
           </div>
           <h3 className="text-2xl font-heading font-bold mb-3 text-white group-hover:text-primary transition-colors">Automatyzacje & AI</h3>
-          <p className="text-muted-foreground text-sm mb-6">Twój zespół robi to samo od miesięcy? My to eliminujemy w tydzień. Integracje, boty, AI — masz.</p>
+          <p className="text-muted-foreground text-sm mb-6">Twój zespół robi to samo od miesięcy? My to eliminujemy w tydzień. Integracje, boty, AI - masz.</p>
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary/80 transition-colors w-fit">
             Więcej <ArrowRight className="w-4 h-4" />
           </span>
@@ -129,7 +129,7 @@ export function ServicesBentoGrid() {
             <Share2 className="w-6 h-6" />
           </div>
           <h3 className="text-3xl font-heading font-bold mb-3 text-white group-hover:text-pink-500 transition-colors">Social Media Marketing</h3>
-          <p className="text-muted-foreground mb-8">Twój profil to puste miejsce? Albo jest, ale nikt nie reaguje? Budujemy społeczności, które napędzają sprzedaż — nie tylko lajki.</p>
+          <p className="text-muted-foreground mb-8">Twój profil to puste miejsce? Albo jest, ale nikt nie reaguje? Budujemy społeczności, które napędzają sprzedaż - nie tylko lajki.</p>
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-pink-500 text-white font-bold text-sm hover:bg-pink-600 transition-colors w-fit">
             Więcej <ArrowRight className="w-4 h-4" />
           </span>

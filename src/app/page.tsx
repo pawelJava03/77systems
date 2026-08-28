@@ -38,7 +38,7 @@ export default function Home() {
         "name": "Ile kosztuje stworzenie strony internetowej?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Zależy od zakresu — i to naprawdę uczciwa odpowiedź. Prosta strona wizytówkowa lub landing page zaczyna się od kilku tysięcy złotych i powstaje w 2–4 tygodnie. Rozbudowana aplikacja webowa, sklep e-commerce lub system z integracjami to budżet rzędu kilkunastu–kilkudziesięciu tysięcy i czas realizacji 2–4 miesiące. Zawsze dostajesz wycenę z dokładnym zakresem — zanim podpiszesz cokolwiek."
+          "text": "Zależy od zakresu - i to naprawdę uczciwa odpowiedź. Prosta strona wizytówkowa lub landing page zaczyna się od kilku tysięcy złotych i powstaje w 2-4 tygodnie. Rozbudowana aplikacja webowa, sklep e-commerce lub system z integracjami to budżet rzędu kilkunastu-kilkudziesięciu tysięcy i czas realizacji 2-4 miesiące. Zawsze dostajesz wycenę z dokładnym zakresem - zanim podpiszesz cokolwiek."
         }
       },
       {
@@ -46,7 +46,7 @@ export default function Home() {
         "name": "Jak długo trwa realizacja projektu?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Proste strony i landing page'e — 2 do 4 tygodni. Systemy automatyzacji procesów — zazwyczaj pierwsze wdrożenie w ciągu 1–3 tygodni. Rozbudowane platformy i aplikacje — od 2 do 5 miesięcy. Każdy projekt ma harmonogram z konkretnymi kamieniami milowymi. Znasz termin zanim prace ruszą."
+          "text": "Proste strony i landing page'e - 2 do 4 tygodni. Systemy automatyzacji procesów - zazwyczaj pierwsze wdrożenie w ciągu 1-3 tygodni. Rozbudowane platformy i aplikacje - od 2 do 5 miesięcy. Każdy projekt ma harmonogram z konkretnymi kamieniami milowymi. Znasz termin zanim prace ruszą."
         }
       },
       {
@@ -54,7 +54,7 @@ export default function Home() {
         "name": "Czy zapewniacie utrzymanie po wdrożeniu?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Tak — i to jest nasza specjalność. Nie zostawiamy projektu po wdrożeniu. Oferujemy pakiety abonamentowe SLA, w ramach których monitorujemy systemy, aktualizujemy oprogramowanie i reagujemy na błędy (zazwyczaj w ciągu 2 godzin). Twoja strona lub automatyzacja nie stanie w środku nocy bez naszej wiedzy."
+          "text": "Tak - i to jest nasza specjalność. Nie zostawiamy projektu po wdrożeniu. Oferujemy pakiety abonamentowe SLA, w ramach których monitorujemy systemy, aktualizujemy oprogramowanie i reagujemy na błędy (zazwyczaj w ciągu 2 godzin). Twoja strona lub automatyzacja nie stanie w środku nocy bez naszej wiedzy."
         }
       },
       {
@@ -62,7 +62,7 @@ export default function Home() {
         "name": "Czy muszę być z Kielc lub Śląska, żeby z Wami współpracować?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nie. Pracujemy z firmami z całej Polski — i nie tylko. Audyt, wycena, projekt i wdrożenie — całość możemy przeprowadzić zdalnie. Jeśli jednak wolisz spotkanie twarzą w twarz, dojeżdżamy do klientów w Kielcach, Warszawie i aglomeracji śląskiej."
+          "text": "Nie. Pracujemy z firmami z całej Polski - i nie tylko. Audyt, wycena, projekt i wdrożenie - całość możemy przeprowadzić zdalnie. Jeśli jednak wolisz spotkanie twarzą w twarz, dojeżdżamy do klientów w Kielcach, Warszawie i aglomeracji śląskiej."
         }
       },
       {
@@ -70,7 +70,7 @@ export default function Home() {
         "name": "Co jeśli nie wiem, które procesy można zautomatyzować?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "To właśnie nasza praca. Zaczynamy od bezpłatnego audytu procesów — rozmawiamy z Tobą o codziennych operacjach i sami wskazujemy, co pochłania najwięcej czasu i pieniędzy. Nie musisz być ekspertem od technologii. Wystarczy, że opiszesz nam swój dzień pracy."
+          "text": "To właśnie nasza praca. Zaczynamy od bezpłatnego audytu procesów - rozmawiamy z Tobą o codziennych operacjach i sami wskazujemy, co pochłania najwięcej czasu i pieniędzy. Nie musisz być ekspertem od technologii. Wystarczy, że opiszesz nam swój dzień pracy."
         }
       }
     ]
@@ -88,7 +88,7 @@ export default function Home() {
         {/* Background */}
         <div className="absolute inset-0 -z-10 bg-[#050505] overflow-hidden">
 
-          {/* Flat grid — widoczna na wszystkich ekranach */}
+          {/* Flat grid - widoczna na wszystkich ekranach */}
           <div
             className="absolute inset-0 opacity-30"
             style={{
@@ -99,7 +99,7 @@ export default function Home() {
             }}
           />
 
-          {/* 3D Grid Floor — tylko desktop */}
+          {/* 3D Grid Floor - tylko desktop */}
           <div
             className="hidden md:block absolute inset-x-[-50%] bottom-[-20%] h-[120%] origin-bottom opacity-40"
             style={{
@@ -111,10 +111,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,85,0,0.25)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,85,0,0.25)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-grid-move" />
           </div>
 
-          {/* Pomarańczowa poświata — centrum */}
+          {/* Pomarańczowa poświata - centrum */}
           <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] md:w-[800px] md:h-[400px] bg-primary/15 blur-[80px] rounded-[100%] pointer-events-none" />
 
-          {/* Fioletowy akcent — prawy dół */}
+          {/* Fioletowy akcent - prawy dół */}
           <div className="absolute bottom-[10%] right-[5%] w-[300px] h-[200px] bg-[#8B5CF6]/10 blur-[80px] rounded-[100%] pointer-events-none" />
 
           {/* Winieta góra/dół */}
@@ -156,7 +156,7 @@ export default function Home() {
           </div>
           
           <p className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mt-8 relative z-10">
-            Powtarzalne zadania zabijają Wasz czas — i pieniądze. Wdrażamy inteligentne automatyzacje oraz budujemy błyskawiczne strony internetowe, które razem pracują na wzrost Twojego biznesu 24/7. Bez rekrutacji. Bez nadgodzin. Bez błędów.
+            Powtarzalne zadania zabijają Wasz czas - i pieniądze. Wdrażamy inteligentne automatyzacje oraz budujemy błyskawiczne strony internetowe, które razem pracują na wzrost Twojego biznesu 24/7. Bez rekrutacji. Bez nadgodzin. Bez błędów.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12 relative z-10">
@@ -202,7 +202,7 @@ export default function Home() {
           <div className="flex flex-col items-center relative z-10 w-full md:w-1/3">
              <div className="w-20 h-20 rounded-full border-2 border-border flex items-center justify-center text-3xl font-heading font-bold mb-6 bg-background">2</div>
              <h3 className="text-xl font-bold mb-2">Strategia & Design</h3>
-             <p className="text-muted-foreground text-sm">Projektujemy architekturę systemu lub makiety strony. Dostajesz plan, wycenę i termin — zanim zatwierdzisz zlecenie.</p>
+             <p className="text-muted-foreground text-sm">Projektujemy architekturę systemu lub makiety strony. Dostajesz plan, wycenę i termin - zanim zatwierdzisz zlecenie.</p>
           </div>
 
           <svg className="hidden md:block w-32 h-12 text-muted-foreground/30 absolute right-[22%] top-10" fill="none" viewBox="0 0 100 20" stroke="currentColor">
@@ -214,7 +214,7 @@ export default function Home() {
           <div className="flex flex-col items-center relative z-10 w-full md:w-1/3">
              <div className="w-20 h-20 rounded-full border-2 border-border flex items-center justify-center text-3xl font-heading font-bold mb-6 bg-background">3</div>
              <h3 className="text-xl font-bold mb-2">Uruchomienie & Opieka</h3>
-             <p className="text-muted-foreground text-sm">Kodujemy, testujemy i wdrażamy. Po starcie jesteśmy z Tobą — monitorujemy systemy i reagujemy zanim Ty w ogóle zauważysz problem.</p>
+             <p className="text-muted-foreground text-sm">Kodujemy, testujemy i wdrażamy. Po starcie jesteśmy z Tobą - monitorujemy systemy i reagujemy zanim Ty w ogóle zauważysz problem.</p>
           </div>
         </div>
       </section>
@@ -223,7 +223,7 @@ export default function Home() {
       <section className="container px-4 py-16 md:py-32">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
           <div>
-            <h2 className="mb-4">Wszystko, czego potrzebuje Twój biznes — pod jednym dachem.</h2>
+            <h2 className="mb-4">Wszystko, czego potrzebuje Twój biznes - pod jednym dachem.</h2>
             <p className="text-muted-foreground text-xl">Jeden partner. Pełna odpowiedzialność. Żadnych wymówek.</p>
           </div>
           <Link href="/uslugi" className="flex items-center gap-2 text-primary font-bold hover:underline mt-4 md:mt-0">
@@ -266,7 +266,7 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Agnieszka — formapsyche.pl */}
+            {/* Agnieszka - formapsyche.pl */}
             <a
               href="https://formapsyche.pl"
               target="_blank"
@@ -290,7 +290,7 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Krystian — lidmir.pl */}
+            {/* Krystian - lidmir.pl */}
             <a
               href="https://lidmir.pl"
               target="_blank"
@@ -365,29 +365,29 @@ export default function Home() {
       <section className="container max-w-4xl px-4 py-16 md:py-32">
         <div className="text-center mb-16">
           <h2 className="mb-6">Masz pytania? <span className="text-primary">Mamy odpowiedzi.</span></h2>
-          <p className="text-xl text-muted-foreground">Jeśli nie znajdziesz odpowiedzi poniżej — napisz lub zadzwoń. Odpiszemy tego samego dnia.</p>
+          <p className="text-xl text-muted-foreground">Jeśli nie znajdziesz odpowiedzi poniżej - napisz lub zadzwoń. Odpiszemy tego samego dnia.</p>
         </div>
 
         <div className="w-full">
           <FAQItem
             question="Ile kosztuje stworzenie strony internetowej?"
-            answer="Zależy od zakresu — i to naprawdę uczciwa odpowiedź. Prosta strona wizytówkowa lub landing page zaczyna się od kilku tysięcy złotych i powstaje w 2–4 tygodnie. Rozbudowana aplikacja webowa, sklep e-commerce lub system z integracjami to budżet rzędu kilkunastu–kilkudziesięciu tysięcy i czas realizacji 2–4 miesiące. Zawsze dostajesz wycenę z dokładnym zakresem — zanim podpiszesz cokolwiek."
+            answer="Zależy od zakresu - i to naprawdę uczciwa odpowiedź. Prosta strona wizytówkowa lub landing page zaczyna się od kilku tysięcy złotych i powstaje w 2-4 tygodnie. Rozbudowana aplikacja webowa, sklep e-commerce lub system z integracjami to budżet rzędu kilkunastu-kilkudziesięciu tysięcy i czas realizacji 2-4 miesiące. Zawsze dostajesz wycenę z dokładnym zakresem - zanim podpiszesz cokolwiek."
           />
           <FAQItem
             question="Jak długo trwa realizacja projektu?"
-            answer="Proste strony i landing page'e — 2 do 4 tygodni. Systemy automatyzacji procesów — zazwyczaj pierwsze wdrożenie w ciągu 1–3 tygodni. Rozbudowane platformy i aplikacje — od 2 do 5 miesięcy. Każdy projekt ma harmonogram z konkretnymi kamieniami milowymi. Znasz termin zanim prace ruszą."
+            answer="Proste strony i landing page'e - 2 do 4 tygodni. Systemy automatyzacji procesów - zazwyczaj pierwsze wdrożenie w ciągu 1-3 tygodni. Rozbudowane platformy i aplikacje - od 2 do 5 miesięcy. Każdy projekt ma harmonogram z konkretnymi kamieniami milowymi. Znasz termin zanim prace ruszą."
           />
           <FAQItem
             question="Czy zapewniacie utrzymanie po wdrożeniu?"
-            answer="Tak — i to jest nasza specjalność. Nie zostawiamy projektu po wdrożeniu. Oferujemy pakiety abonamentowe SLA, w ramach których monitorujemy systemy, aktualizujemy oprogramowanie i reagujemy na błędy (zazwyczaj w ciągu 2 godzin). Twoja strona lub automatyzacja nie stanie w środku nocy bez naszej wiedzy."
+            answer="Tak - i to jest nasza specjalność. Nie zostawiamy projektu po wdrożeniu. Oferujemy pakiety abonamentowe SLA, w ramach których monitorujemy systemy, aktualizujemy oprogramowanie i reagujemy na błędy (zazwyczaj w ciągu 2 godzin). Twoja strona lub automatyzacja nie stanie w środku nocy bez naszej wiedzy."
           />
           <FAQItem
             question="Czy muszę być z Kielc lub Śląska, żeby z Wami współpracować?"
-            answer="Nie. Pracujemy z firmami z całej Polski — i nie tylko. Audyt, wycena, projekt i wdrożenie — całość możemy przeprowadzić zdalnie. Jeśli jednak wolisz spotkanie twarzą w twarz, dojeżdżamy do klientów w Kielcach, Warszawie i aglomeracji śląskiej."
+            answer="Nie. Pracujemy z firmami z całej Polski - i nie tylko. Audyt, wycena, projekt i wdrożenie - całość możemy przeprowadzić zdalnie. Jeśli jednak wolisz spotkanie twarzą w twarz, dojeżdżamy do klientów w Kielcach, Warszawie i aglomeracji śląskiej."
           />
           <FAQItem
             question="Co jeśli nie wiem, które procesy można zautomatyzować?"
-            answer="To właśnie nasza praca. Zaczynamy od bezpłatnego audytu procesów — rozmawiamy z Tobą o codziennych operacjach i sami wskazujemy, co pochłania najwięcej czasu i pieniędzy. Nie musisz być ekspertem od technologii. Wystarczy, że opiszesz nam swój dzień pracy."
+            answer="To właśnie nasza praca. Zaczynamy od bezpłatnego audytu procesów - rozmawiamy z Tobą o codziennych operacjach i sami wskazujemy, co pochłania najwięcej czasu i pieniędzy. Nie musisz być ekspertem od technologii. Wystarczy, że opiszesz nam swój dzień pracy."
           />
         </div>
       </section>

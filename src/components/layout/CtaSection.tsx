@@ -19,7 +19,7 @@ export function CtaSection() {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto font-medium">
-            Każdy miesiąc bez automatyzacji to czas i pieniądze, których nie odzyskasz. Porozmawiajmy — bezpłatnie — o tym, co możemy zrobić dla Twojej firmy. Konkrety od pierwszej rozmowy.
+            Każdy miesiąc bez automatyzacji to czas i pieniądze, których nie odzyskasz. Porozmawiajmy - bezpłatnie - o tym, co możemy zrobić dla Twojej firmy. Konkrety od pierwszej rozmowy.
           </p>
 
           <div className="pt-8">

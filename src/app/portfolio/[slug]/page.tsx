@@ -154,7 +154,7 @@ export default async function SingleProject({ params }: { params: Promise<{ slug
             </div>
           </div>
 
-          {/* Opinia klienta — wyświetla się tylko gdy jest wypełniona */}
+          {/* Opinia klienta - wyświetla się tylko gdy jest wypełniona */}
           {project.testimonial_text && (
             <div className="mt-16 relative">
               {/* Dekoracyjna linia */}

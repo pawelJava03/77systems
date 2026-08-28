@@ -15,7 +15,7 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Preloader overlays via fixed z-[100] — content renders immediately */}
+      {/* Preloader overlays via fixed z-[100] - content renders immediately */}
       <Preloader />
       <Navbar />
       {children}

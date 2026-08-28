@@ -7,7 +7,7 @@ const UPLOAD_DIR = process.env.UPLOAD_DIR ?? path.join(process.cwd(), "public", 
 export async function GET(_req: Request, { params }: { params: Promise<{ filename: string }> }) {
   const { filename } = await params;
 
-  // Sanitize — prevent path traversal
+  // Sanitize - prevent path traversal
   const safe = path.basename(filename);
   const filePath = path.join(UPLOAD_DIR, safe);
 

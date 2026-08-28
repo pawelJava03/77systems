@@ -21,7 +21,7 @@ export function Footer() {
               Konkrety o AI i automatyzacji.<br className="hidden md:block" /> Co 2 tygodnie. Bez spamu.
             </h3>
             <p className="text-muted-foreground mb-8 text-sm md:text-base leading-relaxed">
-              Praktyczne wskazówki, które możesz wdrożyć w swojej firmie już jutro — o automatyzacji procesów, AI i tworzeniu stron. Tylko treść, zero wciskania usług.
+              Praktyczne wskazówki, które możesz wdrożyć w swojej firmie już jutro - o automatyzacji procesów, AI i tworzeniu stron. Tylko treść, zero wciskania usług.
             </p>
             
             <form className="flex flex-col gap-4 max-w-md" onSubmit={(e) => {
@@ -98,7 +98,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} 77systems.eu — Agencja Automatyzacji & IT<br/>
+              © {new Date().getFullYear()} 77systems.eu - Agencja Automatyzacji & IT<br/>
               Kielce · Warszawa · Śląsk<br/>
               Wszelkie prawa zastrzeżone.
             </p>

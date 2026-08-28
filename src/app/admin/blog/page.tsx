@@ -199,7 +199,7 @@ export default function AdminBlogPage() {
                 <input type="text" value={form.meta_title}
                   onChange={(e) => setForm({ ...form, meta_title: e.target.value })}
                   className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50"
-                  placeholder="Tytuł strony — ok. 60 znaków" />
+                  placeholder="Tytuł strony - ok. 60 znaków" />
                 <p className="text-xs text-muted-foreground mt-1">{form.meta_title.length}/60 znaków</p>
               </div>
               <div>
@@ -207,7 +207,7 @@ export default function AdminBlogPage() {
                 <textarea rows={2} value={form.meta_description}
                   onChange={(e) => setForm({ ...form, meta_description: e.target.value })}
                   className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 resize-none"
-                  placeholder="Opis strony — ok. 160 znaków" />
+                  placeholder="Opis strony - ok. 160 znaków" />
                 <p className="text-xs text-muted-foreground mt-1">{form.meta_description.length}/160 znaków</p>
               </div>
               <div>
@@ -284,7 +284,7 @@ export default function AdminBlogPage() {
               {articles.map((a) => {
                 const dateStr = a.created_at
                   ? new Intl.DateTimeFormat("pl-PL", { dateStyle: "medium" }).format(new Date(a.created_at))
-                  : "—";
+                  : "-";
                 return (
                   <div key={a.id}
                     className={`bg-[#111] border rounded-2xl p-5 flex items-start gap-4 transition-colors ${editingId === a.id ? "border-primary/30" : "border-white/5"}`}>

@@ -46,7 +46,7 @@ export function Preloader() {
             }}
           />
 
-          {/* Logo SVG — inline, 3 animated groups */}
+          {/* Logo SVG - inline, 3 animated groups */}
           <motion.div className="relative w-56 sm:w-72 md:w-96">
             <svg
               viewBox="0 0 1500 750"
